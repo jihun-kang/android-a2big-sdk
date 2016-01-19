@@ -8,17 +8,21 @@
 package com.a2big.android.library.common;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.HorizontalScrollView;
 import android.widget.TextView;
+
+import com.a2big.android.library.utils.DevLog;
 
 
 public class SlidingTabLayout extends HorizontalScrollView {
@@ -61,10 +65,14 @@ public class SlidingTabLayout extends HorizontalScrollView {
 
     public SlidingTabLayout(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
+        DevLog.defaultLogging("JH...SlidingTabLayout....11111");
+       /// createDefaultTabView(context);
     }
 
     public SlidingTabLayout(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
+        DevLog.defaultLogging("JH...SlidingTabLayout....2222");
+      /////  createDefaultTabView(context);
 
         // Disable the Scroll Bar
         setHorizontalScrollBarEnabled(false);
@@ -145,6 +153,9 @@ public class SlidingTabLayout extends HorizontalScrollView {
      * {@link #setCustomTabView(int, int)}.
      */
     protected TextView createDefaultTabView(Context context) {
+
+        DevLog.defaultLogging("JH...createDefaultTabView111111....");
+
         TextView textView = new TextView(context);
         textView.setGravity(Gravity.CENTER);
         textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, TAB_VIEW_TEXT_SIZE_SP);
@@ -166,11 +177,26 @@ public class SlidingTabLayout extends HorizontalScrollView {
 
         int padding = (int) (TAB_VIEW_PADDING_DIPS * getResources().getDisplayMetrics().density);
         textView.setPadding(padding, padding, padding, padding);
-        //textView.setWidth(300);
-        //textView.setHeight(50);
 
+        DevLog.defaultLogging("JH...createDefaultTabView222222-11111....");
+
+       // textView.setWidth(convertPixelsToDp(00, context));
+        //textView.setHeight(convertPixelsToDp(200,context));
+        DevLog.defaultLogging("JH...createDefaultTabView333333....");
+        textView.setWidth(300);
+        convertPixelsToDp(200,context);
         return textView;
     }
+
+    public static int convertPixelsToDp(float px, Context context){
+        Resources resources = context.getResources();
+        DisplayMetrics metrics = resources.getDisplayMetrics();
+        float dp = px / (metrics.densityDpi / 160f);
+        DevLog.defaultLogging("JH...convertPixelsToDp...."+dp + " "+(int)dp);
+
+        return (int)dp;
+    }
+
 
     private void populateTabStrip() {
         final PagerAdapter adapter = mViewPager.getAdapter();
