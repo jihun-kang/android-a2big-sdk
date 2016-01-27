@@ -9,6 +9,7 @@ package com.a2big.android.library.init;
 
 import android.app.Application;
 import android.content.Context;
+import android.support.multidex.MultiDex;
 import android.text.TextUtils;
 
 import com.a2big.android.library.Setting.SettingManager;
@@ -83,6 +84,12 @@ public class A2BigApp extends Application {
         ////////   Mint.closeSession(this);
     }
 
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
+
+    }
 
     public static A2BigApp getInstance(){
         return mInstance;
