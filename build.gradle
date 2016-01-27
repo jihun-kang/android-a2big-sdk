@@ -24,8 +24,8 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
   //  compile 'com.android.support:appcompat-v7:21.0.3'
-    compile 'com.android.support:support-v4:20.+'
-    compile 'com.android.support:appcompat-v7:20.+'
+  //  compile 'com.android.support:support-v4:20.+'
+  //  compile 'com.android.support:appcompat-v7:20.+'
 
     //library
     compile 'eu.the4thfloor.volley:com.android.volley:2015.05.28'
@@ -38,4 +38,5 @@ dependencies {
     compile files('libs/httpmime-4.2.2.jar')
 
    //// compile 'com.android.support:support-v4:23.1.1'
+    compile 'com.android.support:multidex:1.0.1'
 }
