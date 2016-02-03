@@ -25,7 +25,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class A2bigHandler implements ITaskHandler, IConnector {
-    private static final String TAG = "BluepeggCreamStyle";
+    private static final String TAG = "a2big";
 
     private SharedTask mSharedTask = null;
     private NetworkManager mNetworkManager;

@@ -25,12 +25,6 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
-//import com.kakao.auth.ApprovalType;
-//import com.kakao.auth.AuthType;
-//import com.kakao.auth.IApplicationConfig;
-//import com.kakao.auth.ISessionConfig;
-//import com.kakao.auth.KakaoAdapter;
-//import com.kakao.auth.KakaoSDK;
 
 import java.util.HashMap;
 

@@ -17,7 +17,7 @@ public class LruCacheSample implements ImageCache {
 
     public LruCacheSample() {
         int maxMemory = (int) (Runtime.getRuntime().maxMemory() / 1024);
-        int cacheSize = maxMemory / 8; // 最大メモリに依存
+        int cacheSize = maxMemory / 8;
         // int cacheSize = 5 * 1024 * 1024; // 5MB
 
         mMemoryCache = new LruCache<String, Bitmap>(cacheSize) {
@@ -29,7 +29,6 @@ public class LruCacheSample implements ImageCache {
         };
     }
 
-    // ImageCacheのインターフェイス実装
     @Override
     public Bitmap getBitmap(String url) {
         return mMemoryCache.get(url);
