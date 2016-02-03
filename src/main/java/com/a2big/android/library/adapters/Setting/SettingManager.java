@@ -1,4 +1,4 @@
-package com.a2big.android.library.Setting;
+package com.a2big.android.library.adapters.Setting;
 
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;

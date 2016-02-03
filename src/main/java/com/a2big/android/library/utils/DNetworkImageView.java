@@ -38,6 +38,10 @@ public class DNetworkImageView extends NetworkImageView {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        DevLog.defaultLogging("widthMeasureSpec...W:"+widthMeasureSpec+" H:"+heightMeasureSpec);
+
+
+
         if (mHeightRatio > 0.0) {
             // set the image views size
             int width = View.MeasureSpec.getSize(widthMeasureSpec);

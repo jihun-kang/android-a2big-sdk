@@ -14,7 +14,7 @@
         android:layout_height="40dp"
         android:minWidth="1dp"
         android:minHeight="1dp"
-        android:indeterminateDrawable="@drawable/white_progess_loading" />
+       />
     
     <TextView 
         android:id="@+id/progressContent"

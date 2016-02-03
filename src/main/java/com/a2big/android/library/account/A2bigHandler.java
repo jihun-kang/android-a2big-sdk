@@ -121,7 +121,7 @@ public class A2bigHandler implements ITaskHandler, IConnector {
 
 
                 case MANAGER_REGISTRATION: {
-                    DevLog.defaultLogging("MANAGER_REGISTRATION...");
+                    DevLog.defaultLogging("MANAGER_REGISTRATION...!!!!!");
                     response = regManager((List<Object>) tp.getParameterValue());
                     break;
                 }
@@ -191,8 +191,10 @@ public class A2bigHandler implements ITaskHandler, IConnector {
     private Object regUser(List<Object> pParams) throws UnsupportedEncodingException {
         DevLog.defaultLogging("######### regUser...");
 
-        if (pParams == null || pParams.size() != 18)
+        if (pParams == null || pParams.size() != 20) {
+            DevLog.defaultLogging("regUser>>>>>>pParams.size() != 20");
             return null;
+        }
 
         String email = (String) pParams.get(0);
         String password = (String) pParams.get(1);
@@ -216,10 +218,15 @@ public class A2bigHandler implements ITaskHandler, IConnector {
         params.add(new BasicNameValuePair("etc",  (String) pParams.get(15)));
         params.add(new BasicNameValuePair("career",  (String) pParams.get(16)));
         params.add(new BasicNameValuePair("prize_giving_details",  (String) pParams.get(17)));
+
+        params.add(new BasicNameValuePair("latitude",  (String) pParams.get(18)));
+        params.add(new BasicNameValuePair("longitude",  (String) pParams.get(19)));
+
+
         DevLog.defaultLogging("loginAccount...mResponseManager");
 
        /// return mResponseManager.analysePostResponse("api/register/user/", params);
-        return mResponseManager.imageUploadPostResponse("api/upload/image/", params);
+        return mResponseManager.imageUploadPostResponse("api/register/user/", params);
 
 
 
@@ -230,30 +237,19 @@ public class A2bigHandler implements ITaskHandler, IConnector {
      사용자 등록 : handleTask에서 호출
     */
     private Object regManager(List<Object> pParams) throws UnsupportedEncodingException {
-        if (pParams == null || pParams.size() != 18)
+        if (pParams == null || pParams.size() != 7)
             return null;
 
         List<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("name",  (String) pParams.get(0)));
-        params.add(new BasicNameValuePair("sex",  (String) pParams.get(1)));
-        params.add(new BasicNameValuePair("email",  (String) pParams.get(2)));
-        params.add(new BasicNameValuePair("image1",  (String) pParams.get(3)));
-        params.add(new BasicNameValuePair("image2",  (String) pParams.get(4)));
-        params.add(new BasicNameValuePair("image3",  (String) pParams.get(5)));
-        params.add(new BasicNameValuePair("image4",  (String) pParams.get(6)));
-        params.add(new BasicNameValuePair("image5",  (String) pParams.get(7)));
-        params.add(new BasicNameValuePair("birthdate",  (String) pParams.get(8)));
-        params.add(new BasicNameValuePair("height",  (String) pParams.get(9)));
-        params.add(new BasicNameValuePair("weight",  (String) pParams.get(10)));
-        params.add(new BasicNameValuePair("phone",  (String) pParams.get(11)));
-        params.add(new BasicNameValuePair("address",  (String) pParams.get(12)));
-        params.add(new BasicNameValuePair("education",  (String) pParams.get(13)));
-        params.add(new BasicNameValuePair("education_state",  (String) pParams.get(14)));
-        params.add(new BasicNameValuePair("etc",  (String) pParams.get(15)));
-        params.add(new BasicNameValuePair("career",  (String) pParams.get(16)));
-        params.add(new BasicNameValuePair("prize_giving_details",  (String) pParams.get(17)));
+        params.add(new BasicNameValuePair("gcm_regid",  (String) pParams.get(0)));
+        params.add(new BasicNameValuePair("name",  (String) pParams.get(1)));
+        params.add(new BasicNameValuePair("sex",  (String) pParams.get(2)));
+        params.add(new BasicNameValuePair("email",  (String) pParams.get(3)));
+        params.add(new BasicNameValuePair("company_name",  (String) pParams.get(4)));
+        params.add(new BasicNameValuePair("business_no",  (String) pParams.get(5)));
+        params.add(new BasicNameValuePair("company_addr",  (String) pParams.get(6)));
 
-        DevLog.defaultLogging("loginAccount...mResponseManager");
+        DevLog.defaultLogging("regManager...mResponseManager");
 
         return mResponseManager.analysePostResponse("api/register/manager/", params);
     }
@@ -281,22 +277,27 @@ public class A2bigHandler implements ITaskHandler, IConnector {
                                String pEtc,
                                String pCareer,
                                String pPrizeGivingDetails,
+                               String pLatitude,
+                               String pLongitude,
                                IResponseEvent<Object> pResponseEvent){
         DevLog.defaultLogging("######### addTaskRegUser...");
 
         TaskParam task = new TaskParam(Arrays.asList(pName, pSex,pEmail,pImage1,
                                     pImage2,pImage3,pImage4,pImage5,pBirthDay,pHeight,
                                     pWeight,pPhone,pAddress, pEducation,pEducationState,
-                                    pEtc,pCareer,pPrizeGivingDetails),pResponseEvent);
+                                    pEtc,pCareer,pPrizeGivingDetails,pLatitude,pLongitude),pResponseEvent);
 
         mSharedTask.addTask(this, TaskType.USER_REGISTRATION, task);
-
     }
 
     @Override
-    public void addTaskRegManager(String pEmail, String pPassword, IResponseEvent<Object> pResponseEvent) {
-
+    public void addTaskRegManager(String pRegID,String pName, String pSex, String pEmail,
+                                  String pCompanyName, String pBusinessNo, String pCompanyAddr,
+                                  IResponseEvent<Object> pResponseEvent) {
+        TaskParam task = new TaskParam(Arrays.asList(pRegID, pName, pSex,pEmail,pCompanyName,
+                                                    pBusinessNo,pCompanyAddr),pResponseEvent);
+        mSharedTask.addTask(this, TaskType.MANAGER_REGISTRATION, task);
     }
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 }

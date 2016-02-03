@@ -32,7 +32,17 @@ public interface IConnector {
 							   String pEtc,
 							   String pCareer,
 							   String pPrizeGivingDetails,
+							   String pLatitude,
+							   String pLongitude,
 							   IResponseEvent<Object> pResponseEvent);
-	public void addTaskRegManager(String pEmail, String pPassword, IResponseEvent<Object> pResponseEvent);
+
+	public void addTaskRegManager(String pRegID,			//registrationId
+								  String pName,				//이름
+								  String pSex,				//성별
+								  String pEmail,			//이메일
+								  String pCompanyName,		//회사명
+								  String pBusinessNo,		//사업자 등록번호
+								  String pCompanyAddr,		//사업장 주소
+								  IResponseEvent<Object> pResponseEvent);
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////
 }

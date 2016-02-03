@@ -1,6 +1,6 @@
-package com.a2big.android.library.object.objecttype;
+package com.a2big.android.library.objecttype;
 
-import com.a2big.android.library.Setting.SettingManager;
+import com.a2big.android.library.adapters.Setting.SettingManager;
 import com.a2big.android.library.init.A2BigApp;
 import com.a2big.android.library.utils.DevLog;
 

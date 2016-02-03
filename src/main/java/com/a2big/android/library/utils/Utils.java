@@ -16,6 +16,7 @@ import android.graphics.Paint;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.Typeface;
+import android.text.Html;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.View;
@@ -256,11 +257,11 @@ public class Utils {
 		
 		return (TextUtils.isEmpty(id) ? "N/A" : id);
 	}
-	
+	*/
 	public CharSequence setTextHtmlStyle(String pText){
 		return Html.fromHtml(pText);
 	}
-	*/
+
 	public int darkenColor(int color) {
         float[] hsv = new float[3];
         Color.colorToHSV(color, hsv);

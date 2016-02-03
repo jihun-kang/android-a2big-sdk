@@ -1,0 +1,14 @@
+<resources>
+    <string name="dialog_location_title">OUTER에서 위치정보 조회 서비스에 접근하려고 합니다. 동의하시겠습니까 ?</string>
+
+    <string name="dialog_location_ok">허용함</string>
+    <string name="dialog_location_no">허용안함</string>
+
+
+    <string name="confirm">확인</string>
+    <string name="cancel">취소</string>
+    <string name="dialog_fragment_title">Blur Dialog Fragment\n\nhttps://github.com/tvbarthel/BlurDialogFragment</string>
+    <string name="ok">확인</string>
+
+
+</resources>

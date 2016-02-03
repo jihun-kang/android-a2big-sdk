@@ -7,12 +7,14 @@ package com.a2big.android.library.init;
  */
 
 
+import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.support.multidex.MultiDex;
 import android.text.TextUtils;
 
-import com.a2big.android.library.Setting.SettingManager;
+//import com.a2big.outer.main.activities.login.kakao.common.log.Logger;
+import com.a2big.android.library.adapters.Setting.SettingManager;
 import com.a2big.android.library.account.IConnector;
 import com.a2big.android.library.core.CoreAccessHelper;
 import com.a2big.android.library.network.manager.NetworkManager;
@@ -23,18 +25,27 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
+//import com.kakao.auth.ApprovalType;
+//import com.kakao.auth.AuthType;
+//import com.kakao.auth.IApplicationConfig;
+//import com.kakao.auth.ISessionConfig;
+//import com.kakao.auth.KakaoAdapter;
+//import com.kakao.auth.KakaoSDK;
 
 import java.util.HashMap;
 
 
 public class A2BigApp extends Application {
     private static final String TAG = "A2BigApp";
-    private static A2BigApp mInstance;
+    //private static com.a2big.android.library.init.A2BigApp mInstance;
+    private static volatile A2BigApp mInstance = null;
+
     private static Context mAppContext;
+    private static Activity currentActivity;
 
     ///private static A2BigApp mCore;
     private boolean mStarted;
-
+    private boolean mKakaoLogin;
     private volatile CoreAccessHelper mAccessor = null;
     private volatile NetworkManager mNetworkManager = null;
     private volatile SettingManager mSettingManager = null;
@@ -61,10 +72,13 @@ public class A2BigApp extends Application {
 
         /// A2BigApp.mCore = this;
         mInstance = this;
+        ///////KakaoSDK.init(new KakaoSDKAdapter());
+
+
         this.setAppContext(getApplicationContext());
 
         mStarted = false;
-
+        mKakaoLogin  = false;
         onStart();
 
         /////////  KissAnalytics.startAnalytics(getApplicationContext());
@@ -91,7 +105,7 @@ public class A2BigApp extends Application {
 
     }
 
-    public static A2BigApp getInstance(){
+    public static com.a2big.android.library.init.A2BigApp getInstance(){
         return mInstance;
     }
     public static Context getAppContext() {
@@ -102,7 +116,7 @@ public class A2BigApp extends Application {
     }
 
 
-    public static A2BigApp getApplication() {
+    public static com.a2big.android.library.init.A2BigApp getApplication() {
         return mInstance;
     }
 
@@ -246,5 +260,31 @@ public class A2BigApp extends Application {
 
     public boolean getContentRefreshing() {
         return mContentRefresh;
+    }
+
+
+
+    public static Activity getCurrentActivity() {
+        ////Logger.d("++ currentActivity : " + (currentActivity != null ? currentActivity.getClass().getSimpleName() : ""));
+        return currentActivity;
+    }
+
+    public static void setCurrentActivity(Activity currentActivity) {
+        A2BigApp.currentActivity = currentActivity;
+    }
+    /**
+     * singleton 애플리케이션 객체를 얻는다.
+     * @return singleton 애플리케이션 객체
+     */
+    public static A2BigApp getGlobalApplicationContext() {
+        if(mInstance == null)
+            throw new IllegalStateException("this application does not inherit com.kakao.GlobalApplication");
+        return mInstance;
+    }
+
+
+    public boolean getKakaoLogin(){ return mKakaoLogin; }
+    public void setKakaoLoginInit(){
+        mKakaoLogin = true;
     }
 }

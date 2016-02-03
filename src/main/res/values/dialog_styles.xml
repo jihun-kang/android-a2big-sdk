@@ -1,0 +1,46 @@
+<resources>
+
+    <!-- new dialog style -->
+    <style name="creamDialogNoBorder" parent="android:Theme.Dialog">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@null</item>
+        <item name="android:windowSoftInputMode">stateAlwaysHidden</item>
+    </style>
+
+    <style name="creamDialogDefaultBorder" parent="creamDialogNoBorder">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowSoftInputMode">stateAlwaysHidden</item>
+    </style>
+
+    <style name="dividerLine">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:src">@color/line_color</item>
+    </style>
+
+    <style name="dividerLightLine" parent="dividerLine">
+        <item name="android:src">@color/light_line_color</item>
+    </style>
+
+    <style name="darkergrayDividerLine" parent="dividerLine">
+        <item name="android:src">@android:color/darker_gray</item>
+    </style>
+
+    <style name="dividerVerticalLine">
+        <item name="android:layout_width">1dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:src">@color/line_color</item>
+    </style>
+
+    <style name="dividerVerticalLightLine" parent="dividerVerticalLine">
+        <item name="android:src">@color/light_line_color</item>
+    </style>
+
+    <style name="dividerVerticalThickLightLine" parent="dividerVerticalLightLine">
+        <item name="android:layout_width">2dp</item>
+        <item name="android:src">@android:color/white</item>
+    </style>
+
+
+
+</resources>

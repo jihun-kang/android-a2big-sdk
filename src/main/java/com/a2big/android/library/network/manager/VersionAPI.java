@@ -3,7 +3,7 @@ package com.a2big.android.library.network.manager;
 import android.os.AsyncTask;
 
 import com.a2big.android.library.init.A2BigApp;
-import com.a2big.android.library.object.objecttype.VersionObject;
+import com.a2big.android.library.objecttype.VersionObject;
 
 public class VersionAPI implements Runnable {
 	private Thread thread;

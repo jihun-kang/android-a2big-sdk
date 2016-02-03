@@ -21,7 +21,7 @@ public class VolleySingleton {
     private ImageLoader mImageLoader;
 
     private VolleySingleton(){
-        mRequestQueue = Volley.newRequestQueue(A2BigApp.getAppContext());
+        mRequestQueue = Volley.newRequestQueue(com.a2big.android.library.init.A2BigApp.getAppContext());
 
         mImageLoader = new ImageLoader(this.mRequestQueue, new ImageLoader.ImageCache() {
 
@@ -42,9 +42,9 @@ public class VolleySingleton {
         });
     }
 
-    public static VolleySingleton getInstance(){
+    public static com.a2big.android.library.init.VolleySingleton getInstance(){
         if(mInstance == null){
-            mInstance = new VolleySingleton();
+            mInstance = new com.a2big.android.library.init.VolleySingleton();
         }
         return mInstance;
     }

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- dialog -->
+    <color name="light_line_color">#d8d8d8</color>
+    <color name="line_color">#636363</color>
+    <color name="bt_text_color">#5f5f5f</color>
+    <color name="actionbar_color">#282828</color>
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="pressed">#CC97e08f</color>
+    <color name="light_red">#ba0305</color>
+    <color name="background">#FFEFEFEF</color>
+    <color name="soft_grey">#FF777777</color>
+    <color name="red">#fff10800</color>
+
+</resources>

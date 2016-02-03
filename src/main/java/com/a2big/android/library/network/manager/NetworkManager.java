@@ -62,6 +62,7 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.Charset;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
@@ -944,18 +945,53 @@ public class NetworkManager {
 	//public void uploadUserPhoto(String pSubUrl,File image1, File image2, File image3) {
 	public String uploadUserPhoto(String pSubUrl,List<NameValuePair> pArgs) {
 		String outPut = null;
+		File image1=null,image2=null,image3=null,image4=null, image5=null;
 
-		File image1 = new File("/sdcard/tmp_contact_1422116333510.jpg");
-		File image2 = new File("/sdcard/tmp_contact_1422116525553.jpg");
-		File image3 = new File("/sdcard/tmp_contact_1422116568248.jpg");
+		DevLog.defaultLogging("uploadUserPhoto1>> " + pArgs.get(3).getValue());
+		DevLog.defaultLogging("uploadUserPhoto2>> " + pArgs.get(4).getValue());
+		DevLog.defaultLogging("uploadUserPhoto3>> " + pArgs.get(5).getValue());
+		DevLog.defaultLogging("uploadUserPhoto4>> " + pArgs.get(6).getValue());
+		DevLog.defaultLogging("uploadUserPhoto5>> " + pArgs.get(7).getValue());
 
-		DevLog.defaultLogging("image1 file size  " + image1.length());
-		DevLog.defaultLogging("image2 file size  " + image2.length());
-		DevLog.defaultLogging("image2 file size  " + image3.length());
+		if(pArgs.get(3).getValue() != null ) {
+			if (pArgs.get(3).getValue().length() > 0) {
+				image1 = new File(pArgs.get(3).getValue());
+				DevLog.defaultLogging("image1 file size  " + image1.length());
 
-		if( image1 == null) {
-			DevLog.defaultLogging("Error image1 is null " );
+			}
+		}
 
+		if(pArgs.get(4).getValue() != null ) {
+			if(pArgs.get(4).getValue().length() > 0) {
+				image2 = new File(pArgs.get(4).getValue());
+				DevLog.defaultLogging("image2 file size  " + image2.length());
+			}
+		}
+
+
+		if(pArgs.get(5).getValue() != null ) {
+			if (pArgs.get(5).getValue().length() > 0) {
+				image3 = new File(pArgs.get(5).getValue());
+				DevLog.defaultLogging("image3 file size  " + image3.length());
+
+			}
+		}
+
+		if(pArgs.get(6).getValue() != null ) {
+			if (pArgs.get(6).getValue().length() > 0) {
+				image4 = new File(pArgs.get(6).getValue());
+				DevLog.defaultLogging("image4 file size  " + image4.length());
+
+			}
+		}
+
+
+		if(pArgs.get(7).getValue() != null ) {
+			if (pArgs.get(7).getValue().length() > 0) {
+				image5 = new File(pArgs.get(7).getValue());
+				DevLog.defaultLogging("image5 file size  " + image5.length());
+
+			}
 		}
 
 
@@ -963,15 +999,46 @@ public class NetworkManager {
 			String uri = mServerUrl + "/" + pSubUrl;
 
 			HttpPost httppost = new HttpPost(uri);
+			httppost.setHeader("Connection", "Keep-Alive");
+			httppost.setHeader("Accept-Charset", "UTF-8");
+			httppost.setHeader("ENCTYPE", "multipart/form-data");
 
-			MultipartEntity multipartEntity = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
-			multipartEntity.addPart("Title", new StringBody("Title"));
-			multipartEntity.addPart("Nick", new StringBody("Nick"));
-			multipartEntity.addPart("Email", new StringBody("Email"));
-			//multipartEntity.addPart("Description", new StringBody(Settings.SHARE.TEXT));
-			multipartEntity.addPart("file1", new FileBody(image1));
-			multipartEntity.addPart("file2", new FileBody(image2));
-			multipartEntity.addPart("file3", new FileBody(image3));
+			//MultipartEntity multipartEntity = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
+			MultipartEntity multipartEntity   = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE,null, Charset.forName("UTF-8"));
+
+			multipartEntity.addPart("name", new StringBody( pArgs.get(0).getValue(), Charset.forName("UTF-8")) );
+			multipartEntity.addPart("sex", new StringBody( pArgs.get(1).getValue(), Charset.forName("UTF-8")) );
+			multipartEntity.addPart("email", new StringBody( pArgs.get(2).getValue(), Charset.forName("UTF-8")) );
+
+			if( image1 != null )
+				multipartEntity.addPart("file1", new FileBody(image1));		//3
+
+			if( image2 != null)
+				multipartEntity.addPart("file2", new FileBody(image2));		//4
+
+			if( image3 != null)
+				multipartEntity.addPart("file3", new FileBody(image3));		//5
+
+			if( image4 != null)
+				multipartEntity.addPart("file4", new FileBody(image4));		//6
+
+			if( image5 != null)
+				multipartEntity.addPart("file5", new FileBody(image5));		//7
+
+			multipartEntity.addPart("birthdate", new StringBody( pArgs.get(8).getValue(), Charset.forName("UTF-8")) );
+			multipartEntity.addPart("height", new StringBody( pArgs.get(9).getValue(), Charset.forName("UTF-8")) );
+			multipartEntity.addPart("weight", new StringBody( pArgs.get(10).getValue(), Charset.forName("UTF-8")) );
+			multipartEntity.addPart("phone", new StringBody( pArgs.get(11).getValue(), Charset.forName("UTF-8")) );
+			multipartEntity.addPart("address", new StringBody( pArgs.get(12).getValue(), Charset.forName("UTF-8")) );
+			multipartEntity.addPart("education", new StringBody( pArgs.get(13).getValue(), Charset.forName("UTF-8")) );
+			multipartEntity.addPart("education_state", new StringBody( pArgs.get(14).getValue(), Charset.forName("UTF-8")) );
+			multipartEntity.addPart("etc", new StringBody( pArgs.get(15).getValue(), Charset.forName("UTF-8")) );
+			multipartEntity.addPart("career", new StringBody( pArgs.get(16).getValue(), Charset.forName("UTF-8")) );
+			multipartEntity.addPart("prize_giving_details", new StringBody( pArgs.get(17).getValue(), Charset.forName("UTF-8")) );
+
+			multipartEntity.addPart("latitude", new StringBody( pArgs.get(18).getValue(), Charset.forName("UTF-8")) );
+			multipartEntity.addPart("longitude", new StringBody( pArgs.get(19).getValue(), Charset.forName("UTF-8")) );
+
 			httppost.setEntity(multipartEntity);
 
 			HttpClient httpclient = new DefaultHttpClient();
