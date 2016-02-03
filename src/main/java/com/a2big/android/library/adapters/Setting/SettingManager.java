@@ -21,6 +21,11 @@ public class SettingManager {
 	public static final String PREFERENCE_REG_ID = "preference_reg_id";
 	public static final String PREFERENCE_ANDROID_VERSION = "preference_android_version";
 
+
+	//outer
+	public static final String PREFERENCE_SHOW_EVENT_DAY = "preference_show_event_day";
+
+
 	private Utils mUtils;
 
 	public SharedPreferences getSharedPreferences() {
@@ -123,4 +128,19 @@ public class SettingManager {
 		setUid(Constants.ZERO);
 		setMarketVersion(mUtils.getAppVersion());
 	}
+
+
+
+	///////////////
+
+	public void setShowEventDay(String pStr) {
+		SharedPreferences.Editor editor = getSharedPreferences().edit();
+		editor.putString(PREFERENCE_SHOW_EVENT_DAY, pStr);
+		editor.commit();
+	}
+
+	public String getShowEventDay() {
+		return getSharedPreferences().getString(PREFERENCE_SHOW_EVENT_DAY, Constants.EMPTY);
+	}
+
 }
