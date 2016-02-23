@@ -34,6 +34,7 @@ public class A2bigHandler implements ITaskHandler, IConnector {
     private enum TaskType implements ITaskType {
         USER_REGISTRATION(1),
         MANAGER_REGISTRATION(2),
+        GET_GEO_PHOTO(3),
         LOGIN_ACCOUNT(100),
         GET_SIDO_ADDR(101);
 
@@ -112,6 +113,10 @@ public class A2bigHandler implements ITaskHandler, IConnector {
                     break;
                 }
 
+                case GET_GEO_PHOTO:{
+                    response = getGeoPhoto((List<Object>) tp.getParameterValue());
+                    break;
+                }
 
                 case USER_REGISTRATION: {
                     DevLog.defaultLogging("USER_REGISTRATION...");
@@ -254,6 +259,21 @@ public class A2bigHandler implements ITaskHandler, IConnector {
         return mResponseManager.analysePostResponse("api/register/manager/", params);
     }
 
+    private Object getGeoPhoto(List<Object> pParams) throws UnsupportedEncodingException {
+        if (pParams == null || pParams.size() != 3)
+            return null;
+
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("email",  (String) pParams.get(0)));
+        params.add(new BasicNameValuePair("lat",  (String) pParams.get(1)));
+        params.add(new BasicNameValuePair("long",  (String) pParams.get(2)));
+
+        DevLog.defaultLogging("getGeoPhoto...........");
+
+        return mResponseManager.analysePostResponse("api/get/photo/", params);
+    }
+
+
     /////////////////////////////////////////////////////////////////////////////////////////////////////////
     /*
         add Task (IConnector Func)
@@ -297,6 +317,13 @@ public class A2bigHandler implements ITaskHandler, IConnector {
         TaskParam task = new TaskParam(Arrays.asList(pRegID, pName, pSex,pEmail,pCompanyName,
                                                     pBusinessNo,pCompanyAddr),pResponseEvent);
         mSharedTask.addTask(this, TaskType.MANAGER_REGISTRATION, task);
+    }
+
+    @Override
+    public void addTaskGetGeoPhoth(String pEmail, String pLat, String pLong, IResponseEvent<Object> pResponseEvent) {
+        TaskParam task = new TaskParam(Arrays.asList(pEmail, pLat, pLong),pResponseEvent);
+        mSharedTask.addTask(this, TaskType.GET_GEO_PHOTO, task);
+
     }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 

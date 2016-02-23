@@ -44,5 +44,14 @@ public interface IConnector {
 								  String pBusinessNo,		//사업자 등록번호
 								  String pCompanyAddr,		//사업장 주소
 								  IResponseEvent<Object> pResponseEvent);
+
+
+
+	public void addTaskGetGeoPhoth(
+								  String pEmail,			//이메일
+								  String pLat,				//회사명
+								  String pLong,				//사업자 등록번호
+								  IResponseEvent<Object> pResponseEvent);
+
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////
 }
