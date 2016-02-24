@@ -2,5 +2,7 @@
 <resources>
     <color name="transparent">#00000000</color>
     <color name="circle_dark_color">#4a4548</color>
+    <color name="green">#ff8dd304</color>
+    <color name="blue">#ff82e0ff</color>
 
 </resources>
