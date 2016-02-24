@@ -13,6 +13,7 @@ import android.widget.ListView;
 import com.a2big.android.library.R;
 import com.a2big.android.library.custom.adapter.AppAdapter;
 import com.a2big.android.library.custom.adapter.ShareApp;
+import com.a2big.android.library.custom.inteface.ShareDialogConnector;
 import com.a2big.android.library.utils.DevLog;
 
 import java.util.ArrayList;
@@ -26,6 +27,7 @@ public class CustomShareDialog {
     Context mContext;
     private String name;
     AppAdapter adapter=null;
+    private ShareDialogConnector mEventListener;
 
     public CustomShareDialog(Context context){
        // this.mActivity = a;
@@ -61,6 +63,9 @@ public class CustomShareDialog {
                                     long arg3) {
 
                 DevLog.defaultLogging("itemClick.." + position);
+                if(mEventListener!=null)
+                    mEventListener.onReceivedMessage(position);
+
                 //feed();
             }
         });
@@ -72,8 +77,8 @@ public class CustomShareDialog {
         ArrayList<ShareApp> m_orders = new ArrayList<ShareApp>();
 
         ShareApp p1 = new ShareApp(R.drawable.email, "이메일");
-        ShareApp p2 = new ShareApp(R.drawable.sms, "문자");
-        ShareApp p3 = new ShareApp(R.drawable.kakao, "카카오톡");
+        ShareApp p2 = new ShareApp(R.drawable.kakao, "카카오톡");
+        ShareApp p3 = new ShareApp(R.drawable.sms, "문자");
 
         m_orders.add(p1);
         m_orders.add(p2);
@@ -82,6 +87,9 @@ public class CustomShareDialog {
     }
 
 
+    public void setOnReceivedEvent(ShareDialogConnector listener){
+        mEventListener = listener;
+    }
 
 
 
