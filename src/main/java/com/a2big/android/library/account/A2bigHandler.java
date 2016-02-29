@@ -35,6 +35,7 @@ public class A2bigHandler implements ITaskHandler, IConnector {
         USER_REGISTRATION(1),
         MANAGER_REGISTRATION(2),
         GET_GEO_PHOTO(3),
+        GET_PHOTO_ROAD_CAST(4),
         LOGIN_ACCOUNT(100),
         GET_SIDO_ADDR(101);
 
@@ -131,6 +132,13 @@ public class A2bigHandler implements ITaskHandler, IConnector {
                     break;
                 }
 
+                case GET_PHOTO_ROAD_CAST:{
+                    DevLog.defaultLogging("GET_PHOTO_ROAD_CAST...!!!!!");
+                    response = getPhotoRoadCasting((List<Object>) tp.getParameterValue());
+                    break;
+
+                }
+
 
             }
 
@@ -142,6 +150,10 @@ public class A2bigHandler implements ITaskHandler, IConnector {
                 tp.getResponse().onResponse(response);
             }
         }
+    }
+
+    private Object getPhotoRoadCasting(List<Object> parameterValue) {
+        return mResponseManager.analysePostResponse("api/get/photo/roadcating", null);
     }
 
     @Override
@@ -323,6 +335,13 @@ public class A2bigHandler implements ITaskHandler, IConnector {
     public void addTaskGetGeoPhoth(String pEmail, String pLat, String pLong, IResponseEvent<Object> pResponseEvent) {
         TaskParam task = new TaskParam(Arrays.asList(pEmail, pLat, pLong),pResponseEvent);
         mSharedTask.addTask(this, TaskType.GET_GEO_PHOTO, task);
+
+    }
+
+    @Override
+    public void getPhotoRoadCasting(IResponseEvent<Object> pResponseEvent) {
+        TaskParam task = new TaskParam(null,pResponseEvent);
+        mSharedTask.addTask(this, TaskType.GET_PHOTO_ROAD_CAST, task);
 
     }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////

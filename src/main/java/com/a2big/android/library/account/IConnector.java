@@ -53,5 +53,6 @@ public interface IConnector {
 								  String pLong,				//사업자 등록번호
 								  IResponseEvent<Object> pResponseEvent);
 
+	public void getPhotoRoadCasting(IResponseEvent<Object> pResponseEvent);
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////
 }

@@ -745,10 +745,12 @@ public class NetworkManager {
 			HttpConnectionParams.setSoTimeout(params, 5000);
 
 			HttpPost httpPost = new HttpPost(url);
-			UrlEncodedFormEntity entityRequest =
-					new UrlEncodedFormEntity(pArgs, "UTF-8");
+			if( pArgs != null) {
+				UrlEncodedFormEntity entityRequest =
+						new UrlEncodedFormEntity(pArgs, "UTF-8");
 
-			httpPost.setEntity(entityRequest);
+				httpPost.setEntity(entityRequest);
+			}
 
 			HttpResponse responsePost = http.execute(httpPost);
 			HttpEntity resEntity = responsePost.getEntity();
