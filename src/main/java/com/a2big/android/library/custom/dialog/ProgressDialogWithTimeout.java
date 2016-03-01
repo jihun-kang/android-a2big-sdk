@@ -80,7 +80,8 @@ public class ProgressDialogWithTimeout {
         View view = mDialog.getParentView();
         mDialog.setCancelable(false);
         TextView progressContent = (TextView)view.findViewById(R.id.progressContent);
-        progressContent.setText(R.string.app_name);
+      //  progressContent.setText(R.string.app_name);
+        progressContent.setText(pRes);
         mDialog.getButtonContainer().setVisibility(View.GONE);
         mDialog.show();
         mDialog.show();
