@@ -64,12 +64,21 @@ public class ProgressDialogWithTimeout {
 
     public  A2bigDialog show (Context context, CharSequence message, int timeout)
     {
+       // if( mTimer != null){
+           // mTimer.cancel();
+        //    mTimer = null;
+       // }
+        mTimer = new Timer();
         mTimeout = timeout;
         mContext = context;
+
+        DevLog.defaultLogging("A2bigDialog show TimeOut..."+mTimeout);
+
         // Run task after 10 seconds
         MyTask task = new MyTask(callbackEvent);
-        mTimer.schedule(task, 0, mTimeout);
-
+        if( mTimer != null) {
+            mTimer.schedule(task, 0, mTimeout);
+        }
         setMessage(message.toString());
         //dialog = ProgressDialog.show(context, title, message);
         return mDialog;
@@ -83,7 +92,7 @@ public class ProgressDialogWithTimeout {
       //  progressContent.setText(R.string.app_name);
         progressContent.setText(pRes);
         mDialog.getButtonContainer().setVisibility(View.GONE);
-        mDialog.show();
+       /// mDialog.show();
         mDialog.show();
       ////  timerDelayRemoveDialog(2000,mDialog);
 

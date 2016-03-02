@@ -24,7 +24,10 @@ public class SettingManager {
 
 	//outer
 	public static final String PREFERENCE_SHOW_EVENT_DAY = "preference_show_event_day";
-
+	public static final String PREFERENCE_GPS_CUR_LAT = "preference_gps_cur_lat";
+	public static final String PREFERENCE_GPS_CUR_LONG = "preference_gps_cur_long";
+	public static final String PREFERENCE_GPS_CUR_ADDR = "preference_gps_cur_addr";
+	public static final String PREFERENCE_GPS_CUR_ADDR_LAST = "preference_gps_cur_addr_last";
 
 	private Utils mUtils;
 
@@ -131,8 +134,9 @@ public class SettingManager {
 
 
 
-	///////////////
-
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////
+	// outer
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////
 	public void setShowEventDay(String pStr) {
 		SharedPreferences.Editor editor = getSharedPreferences().edit();
 		editor.putString(PREFERENCE_SHOW_EVENT_DAY, pStr);
@@ -141,6 +145,47 @@ public class SettingManager {
 
 	public String getShowEventDay() {
 		return getSharedPreferences().getString(PREFERENCE_SHOW_EVENT_DAY, Constants.EMPTY);
+	}
+
+
+	public void setCurGpsLat(String pStr) {
+		SharedPreferences.Editor editor = getSharedPreferences().edit();
+		editor.putString(PREFERENCE_GPS_CUR_LAT, pStr);
+		editor.commit();
+	}
+
+	public String getCurGpsLat() {
+		return getSharedPreferences().getString(PREFERENCE_GPS_CUR_LAT, Constants.EMPTY);
+	}
+
+	public void setCurGpsLong(String pStr) {
+		SharedPreferences.Editor editor = getSharedPreferences().edit();
+		editor.putString(PREFERENCE_GPS_CUR_LONG, pStr);
+		editor.commit();
+	}
+
+	public String getCurGpsLong() {
+		return getSharedPreferences().getString(PREFERENCE_GPS_CUR_LONG, Constants.EMPTY);
+	}
+
+	public void setCurGpsAddr(String pStr) {
+		SharedPreferences.Editor editor = getSharedPreferences().edit();
+		editor.putString(PREFERENCE_GPS_CUR_ADDR, pStr);
+		editor.commit();
+	}
+
+	public String getCurGpsAddr() {
+		return getSharedPreferences().getString(PREFERENCE_GPS_CUR_ADDR, Constants.EMPTY);
+	}
+
+	public void setCurGpsAddrLoat(String pStr) {
+		SharedPreferences.Editor editor = getSharedPreferences().edit();
+		editor.putString(PREFERENCE_GPS_CUR_ADDR_LAST, pStr);
+		editor.commit();
+	}
+
+	public String getCurGpsAddrLoat() {
+		return getSharedPreferences().getString(PREFERENCE_GPS_CUR_ADDR_LAST, Constants.EMPTY);
 	}
 
 }
