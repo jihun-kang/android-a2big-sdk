@@ -78,7 +78,7 @@ public class CustomShareDialog {
 
         ShareApp p1 = new ShareApp(R.drawable.email, "이메일");
         ShareApp p2 = new ShareApp(R.drawable.kakao, "카카오톡");
-        ShareApp p3 = new ShareApp(R.drawable.sms, "문자");
+        ShareApp p3 = new ShareApp(R.drawable.facebook_icon, "페이스북");
 
         m_orders.add(p1);
         m_orders.add(p2);

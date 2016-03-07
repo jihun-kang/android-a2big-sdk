@@ -37,7 +37,12 @@ public class A2bigHandler implements ITaskHandler, IConnector {
         GET_GEO_PHOTO(3),
         GET_PHOTO_ROAD_CAST(4),
         LOGIN_ACCOUNT(100),
-        GET_SIDO_ADDR(101);
+        GET_SIDO_ADDR(101),
+        ADD_ROAD_CAST_PHOTO(102),
+        ADD_USER_SOCIAL(103),
+        ADD_PHOTO_LIKE(104),
+
+        ;
 
         private final int value;
 
@@ -85,7 +90,7 @@ public class A2bigHandler implements ITaskHandler, IConnector {
 
     @Override
     public void handleTask(ITaskType pTaskType, Object pParam) throws IllegalArgumentException {
-        DevLog.defaultLogging("handleTask...");
+        DevLog.defaultLogging("handleTask...##############");
 
         if (!(pTaskType instanceof TaskType)) {
             throw new IllegalArgumentException("pTaskType should be one of TaskTypes which is defined previous");
@@ -140,6 +145,31 @@ public class A2bigHandler implements ITaskHandler, IConnector {
                 }
 
 
+                case ADD_ROAD_CAST_PHOTO:{
+                    DevLog.defaultLogging("ADD_ROAD_CAST_PHOTO...!!!!!");
+                    response = addRoadCastPhoto((List<Object>) tp.getParameterValue());
+
+
+                    break;
+                }
+                case ADD_USER_SOCIAL:{
+                    DevLog.defaultLogging("ADD_USER_SOCIAL...!!!!!");
+                    response = addUserForSocial((List<Object>) tp.getParameterValue());
+
+
+                    break;
+                }
+                case ADD_PHOTO_LIKE:{
+                    DevLog.defaultLogging("ADD_PHOTO_LIKE...!!!!!");
+                    response = addPhotoLike((List<Object>) tp.getParameterValue());
+
+
+                    break;
+                }
+
+
+
+
             }
 
         } catch (Exception e) {
@@ -151,6 +181,39 @@ public class A2bigHandler implements ITaskHandler, IConnector {
             }
         }
     }
+
+    private Object addPhotoLike(List<Object> parameterValue) {
+        return mResponseManager.analysePostResponse("api/add/photo/like", null);
+    }
+
+    private Object addUserForSocial(List<Object> parameterValue) {
+        return mResponseManager.analysePostResponse("api/add/user/social", null);
+    }
+
+
+   // private Object addRoadCastPhoto(List<Object> parameterValue) {
+   //     return mResponseManager.analysePostResponse("api/add/photo/roadcating", null);
+   // }
+
+    private Object addRoadCastPhoto(List<Object> pParams) throws UnsupportedEncodingException {
+        DevLog.defaultLogging("######### addRoadCastPhoto...");
+
+        if (pParams == null || pParams.size() != 5) {
+            DevLog.defaultLogging("regUser>>>>>>pParams.size() != 5");
+            return null;
+        }
+
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("email",  (String) pParams.get(0)));
+        params.add(new BasicNameValuePair("image1",  (String) pParams.get(1)));
+        params.add(new BasicNameValuePair("latitude",  (String) pParams.get(2)));
+        params.add(new BasicNameValuePair("longitude",  (String) pParams.get(3)));
+        params.add(new BasicNameValuePair("location",  (String) pParams.get(4)));
+
+        DevLog.defaultLogging("addRoadCastPhoto...mResponseManager 111111111111111111111");
+        return mResponseManager.roadCastImageUploadPostResponse("api/add/photo/roadcasting", params);
+    }
+
 
     private Object getPhotoRoadCasting(List<Object> parameterValue) {
         return mResponseManager.analysePostResponse("api/get/photo/roadcating", null);
@@ -343,6 +406,28 @@ public class A2bigHandler implements ITaskHandler, IConnector {
         TaskParam task = new TaskParam(null,pResponseEvent);
         mSharedTask.addTask(this, TaskType.GET_PHOTO_ROAD_CAST, task);
 
+    }
+    //20160305
+    @Override
+    public void addTaskRoadCastingPhoto(String pEmail, String pImage1, String pLatitude, String pLongitude, String pLocation, IResponseEvent<Object> pResponseEvent) {
+        TaskParam task = new TaskParam(Arrays.asList(pEmail,pImage1, pLatitude, pLongitude,pLocation),pResponseEvent);
+        mSharedTask.addTask(this, TaskType.ADD_ROAD_CAST_PHOTO, task);
+
+    }
+
+    //20160305
+    @Override
+    public void addTaskUserForSocial(String pEmail, IResponseEvent<Object> pResponseEvent) {
+        TaskParam task = new TaskParam(Arrays.asList(pEmail),pResponseEvent);
+        mSharedTask.addTask(this, TaskType.ADD_USER_SOCIAL, task);
+
+    }
+
+    //20160305
+    @Override
+    public void addLikePhoto(String pEmail, String pPhotoId, IResponseEvent<Object> pResponseEvent) {
+        TaskParam task = new TaskParam(Arrays.asList(pEmail,pPhotoId),pResponseEvent);
+        mSharedTask.addTask(this, TaskType.ADD_PHOTO_LIKE, task);
     }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 

@@ -54,5 +54,26 @@ public interface IConnector {
 								  IResponseEvent<Object> pResponseEvent);
 
 	public void getPhotoRoadCasting(IResponseEvent<Object> pResponseEvent);
+
+	//add image, 20160306
+	public void addTaskRoadCastingPhoto(
+							   String pEmail,
+							   String pImage1,
+							   String pLatitude,
+							   String pLongitude,
+							   String pLocation,
+							   IResponseEvent<Object> pResponseEvent);
+
+	//add user for login,, 20160306
+	public void addTaskUserForSocial(
+			String pEmail,
+			IResponseEvent<Object> pResponseEvent);
+
+	//like, 20160306
+	public void addLikePhoto(
+			String pEmail,
+			String pPhotoId,
+			IResponseEvent<Object> pResponseEvent);
+
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////
 }

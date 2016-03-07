@@ -48,4 +48,11 @@ public class ResponseManager {
 		return mNetworkManager.uploadUserPhoto(pUrl, pArgs);
 	}
 
+
+	public String roadCastImageUploadPostResponse(String pUrl, List<NameValuePair> pArgs) {
+		DevLog.defaultLogging("uploadPostResponse>>{ mNetworkManager.roadCastImageUploadPostResponse,,,,,,,");
+
+		mNetworkManager.connect(mNetworkManager.getServerMode());
+		return mNetworkManager.uploadRoadCastPhoto(pUrl, pArgs);
+	}
 }

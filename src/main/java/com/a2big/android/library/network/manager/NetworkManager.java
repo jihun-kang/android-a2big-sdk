@@ -1061,4 +1061,68 @@ public class NetworkManager {
 		return outPut;
 	}
 
+
+/*
+                            "jhis21c@gmail.com",                //이메일
+                            "http://outer.a2big.com/images/sample/image_4.png",                          //이미지1
+                            "Latitude",                         //latitude
+                            "Longitude",                        //longitude
+
+ */
+	public String uploadRoadCastPhoto(String pSubUrl,List<NameValuePair> pArgs) {
+		String outPut = null;
+		File image1=null;
+
+		DevLog.defaultLogging("#uploadRoadCastPhoto email>> " + pArgs.get(0).getValue());
+		DevLog.defaultLogging("#uploadRoadCastPhoto image>> " + pArgs.get(1).getValue());
+		DevLog.defaultLogging("#uploadRoadCastPhoto Latitude>> " + pArgs.get(2).getValue());
+		DevLog.defaultLogging("#uploadRoadCastPhoto Longitude>> " + pArgs.get(3).getValue());
+		DevLog.defaultLogging("#uploadRoadCastPhoto Location>> " + pArgs.get(4).getValue());
+
+		if (pArgs.get(1).getValue().length() > 0) {
+			image1 = new File(pArgs.get(1).getValue());
+			DevLog.defaultLogging("image1 file size  " + image1.length());
+
+		}
+
+
+
+		try {
+			String uri = mServerUrl + "/" + pSubUrl;
+
+			HttpPost httppost = new HttpPost(uri);
+			httppost.setHeader("Connection", "Keep-Alive");
+			httppost.setHeader("Accept-Charset", "UTF-8");
+			httppost.setHeader("ENCTYPE", "multipart/form-data");
+
+			//MultipartEntity multipartEntity = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
+			MultipartEntity multipartEntity   = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE,null, Charset.forName("UTF-8"));
+
+			multipartEntity.addPart("email", new StringBody( pArgs.get(0).getValue(), Charset.forName("UTF-8")) );
+			multipartEntity.addPart("latitude", new StringBody( pArgs.get(2).getValue(), Charset.forName("UTF-8")) );
+			multipartEntity.addPart("longitude", new StringBody( pArgs.get(3).getValue(), Charset.forName("UTF-8")) );
+			multipartEntity.addPart("location", new StringBody( pArgs.get(4).getValue(), Charset.forName("UTF-8")) );
+
+			if( image1 != null )
+				multipartEntity.addPart("file1", new FileBody(image1));		//3
+
+			httppost.setEntity(multipartEntity);
+
+			HttpClient httpclient = new DefaultHttpClient();
+			//httpclient.execute(httppost, new PhotoUploadResponseHandler());
+			HttpResponse responsePost = httpclient.execute(httppost);
+			HttpEntity resEntity = responsePost.getEntity();
+			outPut = EntityUtils.toString(resEntity);
+			DevLog.defaultLogging(">>>>>>>>>>>>>>>{POST DEBUG}" + outPut);
+
+
+		} catch (Exception e) {
+			//Log.e(ServerCommunication.class.getName(), e.getLocalizedMessage(), e);
+			DevLog.defaultLogging("Error >>>>>>>>>>>>>>>uploadUserPhoto" );
+
+		}
+
+		return outPut;
+	}
+
 }
