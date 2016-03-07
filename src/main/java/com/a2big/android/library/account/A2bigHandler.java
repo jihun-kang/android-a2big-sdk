@@ -183,7 +183,16 @@ public class A2bigHandler implements ITaskHandler, IConnector {
     }
 
     private Object addPhotoLike(List<Object> parameterValue) {
-        return mResponseManager.analysePostResponse("api/add/photo/like", null);
+        if (parameterValue == null || parameterValue.size() != 3) {
+            DevLog.defaultLogging("addPhotoLike>>>>>>pParams.size() != 3");
+            return null;
+        }
+
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("email",  (String) parameterValue.get(0)));
+        params.add(new BasicNameValuePair("photoid",  (String) parameterValue.get(1)));
+        params.add(new BasicNameValuePair("value",  (String) parameterValue.get(2)));
+        return mResponseManager.analysePostResponse("api/add/photo/like", params);
     }
 
     private Object addUserForSocial(List<Object> parameterValue) {
@@ -425,8 +434,10 @@ public class A2bigHandler implements ITaskHandler, IConnector {
 
     //20160305
     @Override
-    public void addLikePhoto(String pEmail, String pPhotoId, IResponseEvent<Object> pResponseEvent) {
-        TaskParam task = new TaskParam(Arrays.asList(pEmail,pPhotoId),pResponseEvent);
+    public void addLikePhoto(String pEmail, String pPhotoId, String pValue,IResponseEvent<Object> pResponseEvent) {
+        TaskParam task = new TaskParam(Arrays.asList(pEmail,pPhotoId,pValue),pResponseEvent);
+        DevLog.defaultLogging("######### addLikePhoto..."+pEmail + " " + pPhotoId+" "+pValue);
+
         mSharedTask.addTask(this, TaskType.ADD_PHOTO_LIKE, task);
     }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////

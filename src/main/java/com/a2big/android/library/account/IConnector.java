@@ -73,6 +73,7 @@ public interface IConnector {
 	public void addLikePhoto(
 			String pEmail,
 			String pPhotoId,
+			String pValue,
 			IResponseEvent<Object> pResponseEvent);
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////
