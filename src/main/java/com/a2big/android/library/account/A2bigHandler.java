@@ -196,7 +196,15 @@ public class A2bigHandler implements ITaskHandler, IConnector {
     }
 
     private Object addUserForSocial(List<Object> parameterValue) {
-        return mResponseManager.analysePostResponse("api/add/user/social", null);
+        if (parameterValue == null || parameterValue.size() != 3) {
+            DevLog.defaultLogging("regUser>>>>>>pParams.size() != 3");
+            return null;
+        }
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("email",  (String) parameterValue.get(0)));
+        params.add(new BasicNameValuePair("name",   (String) parameterValue.get(1)));
+        params.add(new BasicNameValuePair("image",  (String) parameterValue.get(2)));
+        return mResponseManager.analysePostResponse("api/add/user/social", params);
     }
 
 
@@ -426,8 +434,11 @@ public class A2bigHandler implements ITaskHandler, IConnector {
 
     //20160305
     @Override
-    public void addTaskUserForSocial(String pEmail, IResponseEvent<Object> pResponseEvent) {
-        TaskParam task = new TaskParam(Arrays.asList(pEmail),pResponseEvent);
+    public void addTaskUserForSocial(String pEmail,
+                                     String pName,
+                                     String pImageUrl,
+                                     IResponseEvent<Object> pResponseEvent) {
+        TaskParam task = new TaskParam(Arrays.asList(pEmail,pName,pImageUrl),pResponseEvent);
         mSharedTask.addTask(this, TaskType.ADD_USER_SOCIAL, task);
 
     }

@@ -55,6 +55,11 @@ public class SettingManager {
 		editor.putString(PREFERENCE_USER_NAME, pStr);
 		editor.commit();
 	}
+
+	public String getUserName() {
+		return getSharedPreferences().getString(PREFERENCE_USER_NAME, Constants.EMPTY);
+	}
+
 	public void setUserProfile(String pStr) {
 		SharedPreferences.Editor editor = getSharedPreferences().edit();
 		editor.putString(PREFERENCE_USER_PROFILE, pStr);

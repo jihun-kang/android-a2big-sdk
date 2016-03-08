@@ -67,6 +67,8 @@ public interface IConnector {
 	//add user for login,, 20160306
 	public void addTaskUserForSocial(
 			String pEmail,
+			String pName,
+			String pImageUrl,
 			IResponseEvent<Object> pResponseEvent);
 
 	//like, 20160306
