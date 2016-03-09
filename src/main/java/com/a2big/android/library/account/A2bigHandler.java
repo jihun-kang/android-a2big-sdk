@@ -196,15 +196,18 @@ public class A2bigHandler implements ITaskHandler, IConnector {
     }
 
     private Object addUserForSocial(List<Object> parameterValue) {
-        if (parameterValue == null || parameterValue.size() != 3) {
+        if (parameterValue == null || parameterValue.size() != 4) {
             DevLog.defaultLogging("regUser>>>>>>pParams.size() != 3");
             return null;
         }
         List<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("email",  (String) parameterValue.get(0)));
         params.add(new BasicNameValuePair("name",   (String) parameterValue.get(1)));
-        params.add(new BasicNameValuePair("image",  (String) parameterValue.get(2)));
-        return mResponseManager.analysePostResponse("api/add/user/social", params);
+        params.add(new BasicNameValuePair("pImageUrl",  (String) parameterValue.get(2)));
+        params.add(new BasicNameValuePair("image",  (String) parameterValue.get(3)));
+
+        ////////   return mResponseManager.analysePostResponse("api/add/user/social", params);
+        return mResponseManager.loginWithProfilePostResponse("api/add/user/social", params);
     }
 
 
@@ -358,7 +361,7 @@ public class A2bigHandler implements ITaskHandler, IConnector {
         List<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("email",  (String) pParams.get(0)));
         params.add(new BasicNameValuePair("lat",  (String) pParams.get(1)));
-        params.add(new BasicNameValuePair("long",  (String) pParams.get(2)));
+        params.add(new BasicNameValuePair("long", (String) pParams.get(2)));
 
         DevLog.defaultLogging("getGeoPhoto...........");
 
@@ -437,8 +440,9 @@ public class A2bigHandler implements ITaskHandler, IConnector {
     public void addTaskUserForSocial(String pEmail,
                                      String pName,
                                      String pImageUrl,
+                                     String pImage,
                                      IResponseEvent<Object> pResponseEvent) {
-        TaskParam task = new TaskParam(Arrays.asList(pEmail,pName,pImageUrl),pResponseEvent);
+        TaskParam task = new TaskParam(Arrays.asList(pEmail,pName,pImageUrl,pImage),pResponseEvent);
         mSharedTask.addTask(this, TaskType.ADD_USER_SOCIAL, task);
 
     }

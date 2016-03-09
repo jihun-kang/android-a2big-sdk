@@ -69,6 +69,7 @@ public interface IConnector {
 			String pEmail,
 			String pName,
 			String pImageUrl,
+			String pImage,
 			IResponseEvent<Object> pResponseEvent);
 
 	//like, 20160306

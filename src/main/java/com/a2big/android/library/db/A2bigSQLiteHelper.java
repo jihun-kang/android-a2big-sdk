@@ -62,6 +62,20 @@ public class A2bigSQLiteHelper {
 
     }
 
+    public class AddrDong {
+        private String STR_SI;
+        private String STR_KU;
+        private String STR_DONG;
+        private String LATITUDE;
+        private String LONGITUDE;
+
+        public String getNameSi(){ return STR_SI; }
+        public String getNameKu() { return STR_KU; }
+        public String getNameDong() { return STR_DONG; }
+        public String getLatitude() { return LATITUDE; }
+        public String getLongitude() { return LONGITUDE; }
+    }
+
 
     private String[] word;
     private String[] path;
@@ -113,6 +127,65 @@ public class A2bigSQLiteHelper {
         wk = null;
 
         return arraylist;
+    }
+
+
+    public AddrDong  selectAddr(String addrSiCode, String addrKuCode, String addrDongName)
+    {
+        AddrDong addr = new AddrDong();
+
+        try
+        {
+            db = wk.open(READ_DB);
+            String sql =
+                    "SELECT STR_SI, STR_KU, STR_DONG, LATITUDE, LONGITUDE  FROM " +
+                            TABLE_NAME + " WHERE SI_CODE = " + addrSiCode + " AND KU_CODE = "+ addrKuCode + " AND STR_DONG = '"+ addrDongName +"' ORDER BY ID";
+            Log.e("[DEBUG] ", sql);
+
+            mCursor =wk.getAllMethod(db,sql);
+            Log.e("[DEBUG] cursor ", mCursor.toString());
+
+            ////word = new AddrDong[mCursor.getCount()];
+            if(mCursor.getCount()==0)
+            {
+                Log.e("[DEBUG] ","Nothing Data in DB ");
+
+            }else
+            {
+                //word = new AddrDong[mCursor.getCount()];
+                //path = new AddrDong[mCursor.getCount()];
+                for( int index=0; index < mCursor.getCount(); index++)
+                {
+                    mCursor.moveToPosition(index);
+                    addr.STR_SI = mCursor.getString(mCursor.getColumnIndexOrThrow("STR_SI")).trim();
+                    addr.STR_KU = mCursor.getString(mCursor.getColumnIndexOrThrow("STR_KU")).trim();
+                    addr.STR_DONG = mCursor.getString(mCursor.getColumnIndexOrThrow("STR_DONG")).trim();
+                    addr.LATITUDE = mCursor.getString(mCursor.getColumnIndexOrThrow("LATITUDE")).trim();
+                    addr.LONGITUDE = mCursor.getString(mCursor.getColumnIndexOrThrow("LONGITUDE")).trim();
+                    break;
+                }
+            }
+            wk.close(db);
+            Log.e("[DEBUG] select  ", "end");
+
+        }catch(SQLException e)
+        {
+            Log.e("TEXT MEMO", "ERROR OF MAKE LIST ");
+            Log.e("TEXT MEMO", e.toString());
+        }catch(Exception e)
+        {
+            Log.e("TEXT MEMO", "ERROR OF MAKE LIST ");
+            Log.e("TEXT MEMO", e.toString());
+        }
+
+        wk = null;
+
+        if(mCursor.getCount()==0){
+            return null;
+        }
+        else {
+            return addr;
+        }
     }
 
     public void insert(String Word, String Mean, String Syn ) {

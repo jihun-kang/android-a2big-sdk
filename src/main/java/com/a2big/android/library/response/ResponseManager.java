@@ -55,4 +55,15 @@ public class ResponseManager {
 		mNetworkManager.connect(mNetworkManager.getServerMode());
 		return mNetworkManager.uploadRoadCastPhoto(pUrl, pArgs);
 	}
+
+
+	public String loginWithProfilePostResponse(String pUrl, List<NameValuePair> pArgs) {
+		DevLog.defaultLogging("uploadPostResponse>>{ mNetworkManager.loginWithProfilePostResponse,,,,,,,");
+
+		mNetworkManager.connect(mNetworkManager.getServerMode());
+		return mNetworkManager.loginWithProfile(pUrl, pArgs);
+	}
+
+
+
 }

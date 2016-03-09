@@ -29,7 +29,14 @@ public class SettingManager {
 	public static final String PREFERENCE_GPS_CUR_ADDR = "preference_gps_cur_addr";
 	public static final String PREFERENCE_GPS_CUR_ADDR_LAST = "preference_gps_cur_addr_last";
 
-	private Utils mUtils;
+	public static final String PREFERENCE_SELECT_ADDR1 = "preference_select_addr1";
+	public static final String PREFERENCE_SELECT_ADDR2 = "preference_select_addr2";
+	public static final String PREFERENCE_SELECT_ADDR3 = "preference_select_addr3";
+
+	public static final String PREFERENCE_SELECT_LATITUDE = "preference_select_lat";
+	public static final String PREFERENCE_SELECT_LONGITUDE = "preference_select_long";
+
+private Utils mUtils;
 
 	public SharedPreferences getSharedPreferences() {
 		if(mSharedPreferences == null)
@@ -191,6 +198,61 @@ public class SettingManager {
 
 	public String getCurGpsAddrLoat() {
 		return getSharedPreferences().getString(PREFERENCE_GPS_CUR_ADDR_LAST, Constants.EMPTY);
+	}
+
+
+
+	public void setSelectAddr1(String pStr) {
+		SharedPreferences.Editor editor = getSharedPreferences().edit();
+		editor.putString(PREFERENCE_SELECT_ADDR1, pStr);
+		editor.commit();
+	}
+
+	public void setSelectAddr2(String pStr) {
+		SharedPreferences.Editor editor = getSharedPreferences().edit();
+		editor.putString(PREFERENCE_SELECT_ADDR2, pStr);
+		editor.commit();
+	}
+
+
+	public void setSelectAddr3(String pStr) {
+		SharedPreferences.Editor editor = getSharedPreferences().edit();
+		editor.putString(PREFERENCE_SELECT_ADDR3, pStr);
+		editor.commit();
+	}
+
+
+
+	public void setSelectLatitude(String pStr) {
+		SharedPreferences.Editor editor = getSharedPreferences().edit();
+		editor.putString(PREFERENCE_SELECT_LATITUDE, pStr);
+		editor.commit();
+	}
+
+	public void setSelectLongitude(String pStr) {
+		SharedPreferences.Editor editor = getSharedPreferences().edit();
+		editor.putString(PREFERENCE_SELECT_LONGITUDE, pStr);
+		editor.commit();
+	}
+
+	public String getSelectAddr1() {
+		return getSharedPreferences().getString(PREFERENCE_SELECT_ADDR1, Constants.EMPTY);
+	}
+
+	public String getSelectAddr2() {
+		return getSharedPreferences().getString(PREFERENCE_SELECT_ADDR2, Constants.EMPTY);
+	}
+
+	public String getSelectAddr3() {
+		return getSharedPreferences().getString(PREFERENCE_SELECT_ADDR3, Constants.EMPTY);
+	}
+
+	public String getSelectLatitude() {
+		return getSharedPreferences().getString(PREFERENCE_SELECT_LATITUDE, Constants.EMPTY);
+	}
+
+	public String getSelectLongitude() {
+		return getSharedPreferences().getString(PREFERENCE_SELECT_LONGITUDE, Constants.EMPTY);
 	}
 
 }
