@@ -53,7 +53,8 @@ public interface IConnector {
 								  String pLong,				//사업자 등록번호
 								  IResponseEvent<Object> pResponseEvent);
 
-	public void getPhotoRoadCasting(IResponseEvent<Object> pResponseEvent);
+	public void getPhotoRoadCasting(String pEmail,			//이메일
+									IResponseEvent<Object> pResponseEvent);
 
 	//add image, 20160306
 	public void addTaskRoadCastingPhoto(

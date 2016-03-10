@@ -236,7 +236,15 @@ public class A2bigHandler implements ITaskHandler, IConnector {
 
 
     private Object getPhotoRoadCasting(List<Object> parameterValue) {
-        return mResponseManager.analysePostResponse("api/get/photo/roadcating", null);
+        if (parameterValue == null || parameterValue.size() != 1) {
+            DevLog.defaultLogging("regUser>>>>>>pParams.size() != 1");
+            return null;
+        }
+
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("email",  (String) parameterValue.get(0)));
+
+        return mResponseManager.analysePostResponse("api/get/photo/roadcating", params);
     }
 
     @Override
@@ -422,8 +430,8 @@ public class A2bigHandler implements ITaskHandler, IConnector {
     }
 
     @Override
-    public void getPhotoRoadCasting(IResponseEvent<Object> pResponseEvent) {
-        TaskParam task = new TaskParam(null,pResponseEvent);
+    public void getPhotoRoadCasting(String pEmail,IResponseEvent<Object> pResponseEvent) {
+        TaskParam task = new TaskParam(Arrays.asList(pEmail),pResponseEvent);
         mSharedTask.addTask(this, TaskType.GET_PHOTO_ROAD_CAST, task);
 
     }
