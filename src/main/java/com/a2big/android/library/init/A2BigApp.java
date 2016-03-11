@@ -145,11 +145,11 @@ public class A2BigApp extends Application {
         return mAccessor.getConnector();
     }
 
-/*
-    public UserMainDietMenuObject.MenuItem getSelectMenuItem() {
-        return mSelectMenuItem;
-    }
-*/
+    /*
+        public UserMainDietMenuObject.MenuItem getSelectMenuItem() {
+            return mSelectMenuItem;
+        }
+    */
     /*
     public void  setSelectMenuItem(UserMainDietMenuObject.MenuItem m) {
         mSelectMenuItem = m;
