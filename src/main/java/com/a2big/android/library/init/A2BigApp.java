@@ -13,10 +13,10 @@ import android.content.Context;
 import android.support.multidex.MultiDex;
 import android.text.TextUtils;
 
-//import com.a2big.outer.main.activities.login.kakao.common.log.Logger;
-import com.a2big.android.library.adapters.Setting.SettingManager;
 import com.a2big.android.library.account.IConnector;
+import com.a2big.android.library.adapters.Setting.SettingManager;
 import com.a2big.android.library.core.CoreAccessHelper;
+import com.a2big.android.library.db.CouchbaseLiteManager;
 import com.a2big.android.library.network.manager.NetworkManager;
 import com.a2big.android.library.response.ResponseManager;
 import com.a2big.android.library.utils.DevLog;
@@ -25,8 +25,13 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
+import com.couchbase.lite.Manager;
+import com.couchbase.lite.android.AndroidContext;
+import com.couchbase.lite.util.Log;
 
 import java.util.HashMap;
+
+//import com.a2big.outer.main.activities.login.kakao.common.log.Logger;
 
 
 public class A2BigApp extends Application {
@@ -45,6 +50,8 @@ public class A2BigApp extends Application {
     private volatile SettingManager mSettingManager = null;
     private volatile Utils mUtils = null;
     private volatile ResponseManager mResponseManager = null;
+    private volatile CouchbaseLiteManager mCouchbaseLiteManager;
+    private Manager mManager;
 
 
     private RequestQueue mRequestQueue;
@@ -122,6 +129,9 @@ public class A2BigApp extends Application {
             connectCoreEngine();
             getNetworkManager();
             getSettingManager();
+            couchbaseManager();
+            getCouchbaseLiteManager();
+
             getUtils();
             getResponseManager();
         }
@@ -204,6 +214,27 @@ public class A2BigApp extends Application {
     }
 
 
+    public void couchbaseManager() {
+        try {
+            mManager = new Manager(new AndroidContext(this), Manager.DEFAULT_OPTIONS);
+            mManager.enableLogging(TAG, Log.INFO);
+            DevLog.defaultLogging("Manager is created");
+        } catch(Exception e) {
+            DevLog.defaultLogging("Error: " + e);
+        }
+    }
+
+    public CouchbaseLiteManager getCouchbaseLiteManager() {
+        if(mCouchbaseLiteManager == null) {
+            synchronized(this) {
+                if(mCouchbaseLiteManager == null) {
+                    mCouchbaseLiteManager = new CouchbaseLiteManager(mManager);
+                }
+            }
+        }
+
+        return mCouchbaseLiteManager;
+    }
 
 
     public RequestQueue getRequestQueue() {

@@ -38,7 +38,7 @@ public class DNetworkImageView extends NetworkImageView {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        DevLog.defaultLogging("widthMeasureSpec...W:"+widthMeasureSpec+" H:"+heightMeasureSpec);
+        //DevLog.defaultLogging("widthMeasureSpec...W:"+widthMeasureSpec+" H:"+heightMeasureSpec);
 
 
 

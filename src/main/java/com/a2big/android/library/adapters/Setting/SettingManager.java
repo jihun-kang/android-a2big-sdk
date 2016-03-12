@@ -21,6 +21,7 @@ public class SettingManager {
 	public static final String PREFERENCE_REG_ID = "preference_reg_id";
 	public static final String PREFERENCE_ANDROID_VERSION = "preference_android_version";
 
+	public static final String PREFERENCE_BOOKING_DOC_ID = "preference_booking_doc_id";
 
 	//outer
 	public static final String PREFERENCE_SHOW_EVENT_DAY = "preference_show_event_day";
@@ -145,6 +146,15 @@ private Utils mUtils;
 	}
 
 
+	public String getBookingDocId() {
+		return getSharedPreferences().getString(PREFERENCE_BOOKING_DOC_ID, null);
+	}
+
+	public void setBookingDocId(String pStr) {
+		SharedPreferences.Editor editor = getSharedPreferences().edit();
+		editor.putString(PREFERENCE_BOOKING_DOC_ID, pStr);
+		editor.commit();
+	}
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// outer
