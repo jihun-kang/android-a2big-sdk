@@ -20,6 +20,7 @@ import com.a2big.android.library.db.CouchbaseLiteManager;
 import com.a2big.android.library.network.manager.NetworkManager;
 import com.a2big.android.library.response.ResponseManager;
 import com.a2big.android.library.utils.DevLog;
+import com.a2big.android.library.utils.GPSManager;
 import com.a2big.android.library.utils.Utils;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -53,6 +54,7 @@ public class A2BigApp extends Application {
     private volatile CouchbaseLiteManager mCouchbaseLiteManager;
     private Manager mManager;
 
+    private GPSManager mGPS;
 
     private RequestQueue mRequestQueue;
     private ImageLoader mImageLoader;
@@ -131,7 +133,7 @@ public class A2BigApp extends Application {
             getSettingManager();
             couchbaseManager();
             getCouchbaseLiteManager();
-
+            getGPSManager();
             getUtils();
             getResponseManager();
         }
@@ -199,6 +201,13 @@ public class A2BigApp extends Application {
         }
 
         return mUtils;
+    }
+
+    public GPSManager getGPSManager(){
+        if(mGPS == null){
+            mGPS = new GPSManager(this);
+        }
+        return mGPS;
     }
 
     public ResponseManager getResponseManager() {
