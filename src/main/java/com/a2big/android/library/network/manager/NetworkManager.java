@@ -1183,4 +1183,79 @@ public class NetworkManager {
 	}
 
 
+
+	public String getAddrDaum(String apiKey,String lat, String lon) {
+		String str = null;
+		String url = "https://apis.daum.net/local/geo//coord2addr?apikey=" + apiKey +
+											"&longitude=" + lon + "&latitude="+lat+
+											"&inputCoordSystem=WGS84&output=json";
+		DevLog.Logging(TAG, url);
+		DevLog.defaultLogging(">>>>>>>>>>>>>>>" + url);
+
+		final HttpGet get = new HttpGet(url);
+
+		mTimeoutFlag = false;
+		mHandler.sendEmptyMessage(CANCEL_TIMEOUT);
+		mHandler.sendEmptyMessageDelayed(TIMEOUT, HARD_TIMEOUT);
+
+		try {
+			HttpResponse response = mClient.execute(get);
+			HttpEntity resEntity = response.getEntity();
+
+			if(mTimeoutFlag) {
+				if(get != null) {
+					get.abort();
+				}
+
+				return null;
+			}
+
+			if(resEntity != null) {
+				try {
+					str = EntityUtils.toString(resEntity);
+					resEntity.consumeContent();
+
+					if(mTimeoutFlag) {
+						str = null;
+						return null;
+					}
+
+				} catch (ParseException e) {
+					e.printStackTrace();
+					return null;
+
+				} catch (IOException e) {
+					e.printStackTrace();
+					return null;
+				}
+			}
+
+
+		} catch (final UnsupportedEncodingException e) {
+			e.printStackTrace();
+			return null;
+
+
+		} catch (final ClientProtocolException e) {
+			e.printStackTrace();
+			return null;
+
+		} catch (final IOException e) {
+			e.printStackTrace();
+			return null;
+
+		} catch (final IllegalStateException e) {
+			e.printStackTrace();
+			return null;
+
+		} catch (final Exception e) {
+			e.printStackTrace();
+			return null;
+
+		}
+
+		return str;
+	}
+
+
 }

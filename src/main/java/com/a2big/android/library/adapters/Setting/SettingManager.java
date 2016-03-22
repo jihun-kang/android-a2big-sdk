@@ -33,6 +33,8 @@ public class SettingManager {
 	public static final String PREFERENCE_SELECT_ADDR1 = "preference_select_addr1";
 	public static final String PREFERENCE_SELECT_ADDR2 = "preference_select_addr2";
 	public static final String PREFERENCE_SELECT_ADDR3 = "preference_select_addr3";
+	public static final String PREFERENCE_SELECT_FULL_ADDR = "preference_select_full_addr";
+
 
 	public static final String PREFERENCE_SELECT_LATITUDE = "preference_select_lat";
 	public static final String PREFERENCE_SELECT_LONGITUDE = "preference_select_long";
@@ -243,6 +245,17 @@ private Utils mUtils;
 		SharedPreferences.Editor editor = getSharedPreferences().edit();
 		editor.putString(PREFERENCE_SELECT_LONGITUDE, pStr);
 		editor.commit();
+	}
+
+	public void setSelectFullAddr(String pStr) {
+		SharedPreferences.Editor editor = getSharedPreferences().edit();
+		editor.putString(PREFERENCE_SELECT_FULL_ADDR, pStr);
+		editor.commit();
+	}
+
+
+	public String getSelectFullAddr() {
+		return getSharedPreferences().getString(PREFERENCE_SELECT_FULL_ADDR, Constants.EMPTY);
 	}
 
 	public String getSelectAddr1() {

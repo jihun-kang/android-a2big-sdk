@@ -363,17 +363,21 @@ public class A2bigHandler implements ITaskHandler, IConnector {
     }
 
     private Object getGeoPhoto(List<Object> pParams) throws UnsupportedEncodingException {
-        if (pParams == null || pParams.size() != 3)
+        if (pParams == null || pParams.size() != 4)
             return null;
 
         List<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("email",  (String) pParams.get(0)));
         params.add(new BasicNameValuePair("lat",  (String) pParams.get(1)));
         params.add(new BasicNameValuePair("long", (String) pParams.get(2)));
+        params.add(new BasicNameValuePair("addr", (String) pParams.get(3)));
 
         DevLog.defaultLogging("getGeoPhoto...........");
 
-        return mResponseManager.analysePostResponse("api/get/photo/", params);
+       // return mResponseManager.analysePostResponse("api/get/photo/", params);
+        return mResponseManager.analysePostResponse("api/get/photo/location/", params);
+
+
     }
 
 
@@ -423,8 +427,8 @@ public class A2bigHandler implements ITaskHandler, IConnector {
     }
 
     @Override
-    public void addTaskGetGeoPhoth(String pEmail, String pLat, String pLong, IResponseEvent<Object> pResponseEvent) {
-        TaskParam task = new TaskParam(Arrays.asList(pEmail, pLat, pLong),pResponseEvent);
+    public void addTaskGetGeoPhoth(String pEmail, String pLat, String pLong, String pAddr, IResponseEvent<Object> pResponseEvent) {
+        TaskParam task = new TaskParam(Arrays.asList(pEmail, pLat, pLong, pAddr),pResponseEvent);
         mSharedTask.addTask(this, TaskType.GET_GEO_PHOTO, task);
 
     }

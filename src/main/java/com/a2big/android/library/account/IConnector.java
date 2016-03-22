@@ -51,6 +51,7 @@ public interface IConnector {
 								  String pEmail,			//이메일
 								  String pLat,				//회사명
 								  String pLong,				//사업자 등록번호
+								  String pAddr,
 								  IResponseEvent<Object> pResponseEvent);
 
 	public void getPhotoRoadCasting(String pEmail,			//이메일
