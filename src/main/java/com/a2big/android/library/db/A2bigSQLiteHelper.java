@@ -130,6 +130,125 @@ public class A2bigSQLiteHelper {
     }
 
 
+    public List<AddrDong>  getChoDataSearch(String cho)
+    {
+        String cond = null;
+        List<AddrDong> arraylist = new ArrayList<AddrDong>();
+
+        switch (cho) {
+            case "ㄱ":
+            case "ㄲ":
+                cond = "( STR_DONG LIKE '^(ㄱ|ㄲ)' OR ( STR_DONG >= '가' AND STR_DONG < '나' )) ORDER BY STR_DONG";
+                break;
+            case "ㄴ":
+                cond = "(STR_DONG LIKE '^ㄴ' OR ( STR_DONG >= '나' AND STR_DONG < '다' )) ORDER BY STR_DONG";
+                break;
+
+            case "ㄷ":
+            case "ㄸ":
+                cond = "(STR_DONG LIKE '^(ㄷ|ㄸ)' OR ( STR_DONG >= '다' AND STR_DONG < '라' )) ORDER BY STR_DONG";
+                break;
+
+            case "ㄹ":
+                cond = "(STR_DONG LIKE '^ㄹ' OR ( STR_DONG >= '라' AND STR_DONG < '마' )) ORDER BY STR_DONG";
+                break;
+
+            case "ㅁ":
+                cond = "(STR_DONG LIKE '^ㅁ' OR ( STR_DONG >= '마' AND STR_DONG < '바' )) ORDER BY STR_DONG";
+                break;
+
+            case "ㅂ":
+            case "ㅃ":
+                cond = "(STR_DONG LIKE '^ㅂ' OR ( STR_DONG >= '바' AND STR_DONG < '사' )) ORDER BY STR_DONG";
+                break;
+
+            case "ㅅ":
+            case "ㅆ":
+                cond = "(STR_DONG LIKE '^(ㅅ|ㅆ)' OR ( STR_DONG >= '사' AND STR_DONG < '아' )) ORDER BY STR_DONG";
+                break;
+
+            case "ㅇ":
+                cond = "(STR_DONG LIKE '^ㅇ' OR ( STR_DONG >= '아' AND STR_DONG < '자' )) ORDER BY STR_DONG";
+                break;
+
+            case "ㅈ":
+            case "ㅉ":
+            case "ㅊ":
+                cond = "(STR_DONG LIKE '^ㅊ' OR ( STR_DONG >= '차' AND STR_DONG < '카' )) ORDER BY STR_DONG";
+                break;
+
+            case "ㅋ":
+                cond = "(STR_DONG LIKE '^ㅋ' OR ( STR_DONG >= '카' AND STR_DONG < '타' )) ORDER BY STR_DONG";
+                break;
+
+            case "ㅌ":
+                cond = "(STR_DONG LIKE '^ㅌ' OR ( STR_DONG >= '타' AND STR_DONG < '파' )) ORDER BY STR_DONG";
+                break;
+
+            case "ㅍ":
+                cond = "(STR_DONG LIKE '^ㅍ' OR ( STR_DONG >= '파' AND STR_DONG < '하' )) ORDER BY STR_DONG";
+                break;
+
+            case "ㅎ":
+                cond = "(STR_DONG LIKE '^ㅎ' OR ( STR_DONG >= '하')) ORDER BY STR_DONG";
+                break;
+        }
+
+        if( cond == null){
+            wk = null;
+            return null;
+        }
+        else {
+
+            try {
+                db = wk.open(READ_DB);
+                String sql =
+                        "SELECT STR_SI, STR_KU, STR_DONG,LATITUDE,LONGITUDE  FROM " +
+                                TABLE_NAME + " WHERE " + cond;
+                Log.e("[DEBUG] ", sql);
+
+                mCursor = wk.getAllMethod(db, sql);
+                Log.e("[DEBUG] cursor ", mCursor.toString());
+
+                word = new String[mCursor.getCount()];
+                if (mCursor.getCount() == 0) {
+                    Log.e("[DEBUG] ", "Nothing Data in DB ");
+                } else {
+                    word = new String[mCursor.getCount()];
+                    path = new String[mCursor.getCount()];
+                    for (int index = 0; index < mCursor.getCount(); index++) {
+                        mCursor.moveToPosition(index);
+                       // String Path = mCursor.getString(mCursor.getColumnIndexOrThrow("STR_DONG")).trim();
+                        AddrDong addr = new AddrDong();
+
+                        addr.STR_SI = mCursor.getString(mCursor.getColumnIndexOrThrow("STR_SI")).trim();
+                        addr.STR_KU = mCursor.getString(mCursor.getColumnIndexOrThrow("STR_KU")).trim();
+                        addr.STR_DONG = mCursor.getString(mCursor.getColumnIndexOrThrow("STR_DONG")).trim();
+                        addr.LATITUDE = mCursor.getString(mCursor.getColumnIndexOrThrow("LATITUDE")).trim();
+                        addr.LONGITUDE = mCursor.getString(mCursor.getColumnIndexOrThrow("LONGITUDE")).trim();
+
+
+                        Log.e("JH", "get>>>>" + addr.STR_DONG);
+                        arraylist.add(addr);
+                    }
+                }
+                wk.close(db);
+                Log.e("[DEBUG] select  ", "end");
+
+            } catch (SQLException e) {
+                Log.e("TEXT MEMO", "ERROR OF MAKE LIST ");
+                Log.e("TEXT MEMO", e.toString());
+            } catch (Exception e) {
+                Log.e("TEXT MEMO", "ERROR OF MAKE LIST ");
+                Log.e("TEXT MEMO", e.toString());
+            }
+
+            wk = null;
+
+            return arraylist;
+        }
+    }
+
     public AddrDong  selectAddr(String addrSiCode, String addrKuCode, String addrDongName)
     {
         AddrDong addr = new AddrDong();
