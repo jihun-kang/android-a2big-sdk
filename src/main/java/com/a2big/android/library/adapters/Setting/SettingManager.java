@@ -39,6 +39,10 @@ public class SettingManager {
 	public static final String PREFERENCE_SELECT_LATITUDE = "preference_select_lat";
 	public static final String PREFERENCE_SELECT_LONGITUDE = "preference_select_long";
 
+	public static final String PREFERENCE_MAP_PHOTO_DOC_ID = "preference_map_photo_doc_id";
+
+
+
 private Utils mUtils;
 
 	public SharedPreferences getSharedPreferences() {
@@ -155,6 +159,18 @@ private Utils mUtils;
 	public void setBookingDocId(String pStr) {
 		SharedPreferences.Editor editor = getSharedPreferences().edit();
 		editor.putString(PREFERENCE_BOOKING_DOC_ID, pStr);
+		editor.commit();
+	}
+
+
+
+	public String getMapPhotoDocId() {
+		return getSharedPreferences().getString(PREFERENCE_MAP_PHOTO_DOC_ID, null);
+	}
+
+	public void setMapPhotoDocId(String pStr) {
+		SharedPreferences.Editor editor = getSharedPreferences().edit();
+		editor.putString(PREFERENCE_MAP_PHOTO_DOC_ID, pStr);
 		editor.commit();
 	}
 
