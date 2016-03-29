@@ -62,6 +62,7 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.nio.charset.Charset;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
@@ -1249,6 +1250,103 @@ public class NetworkManager {
 			return null;
 
 		} catch (final Exception e) {
+			e.printStackTrace();
+			return null;
+
+		}
+
+		return str;
+	}
+
+
+
+	public String getAddrDaum(String apiKey,String addr) {
+		String str = null;
+		String titleUtf8 = null;
+		try {
+			titleUtf8 = URLEncoder.encode(addr, "utf-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+
+		String url = "https://apis.daum.net/local/geo/addr2coord?apikey=" + apiKey +
+				"&q=" + titleUtf8 + "&inputCoordSystem=WGS84&output=json";
+		DevLog.Logging(TAG, url);
+		DevLog.defaultLogging("@@@@@@@@@>>>>>>>>>>>>>>>" + url);
+
+		final HttpGet get = new HttpGet(url);
+
+		mTimeoutFlag = false;
+		mHandler.sendEmptyMessage(CANCEL_TIMEOUT);
+		mHandler.sendEmptyMessageDelayed(TIMEOUT, HARD_TIMEOUT);
+
+		try {
+			HttpResponse response = mClient.execute(get);
+			HttpEntity resEntity = response.getEntity();
+
+			if(mTimeoutFlag) {
+				if(get != null) {
+					get.abort();
+				}
+
+				return null;
+			}
+			DevLog.defaultLogging("response>>>>>>>>>>>>>>>" + response.toString());
+
+			if(resEntity != null) {
+				try {
+					DevLog.defaultLogging("resEntity>>>>>>>>>>>>>>>" + resEntity.toString());
+
+					str = EntityUtils.toString(resEntity);
+					resEntity.consumeContent();
+
+					if(mTimeoutFlag) {
+						str = null;
+						return null;
+					}
+
+				} catch (ParseException e) {
+					e.printStackTrace();
+					return null;
+
+				} catch (IOException e) {
+					e.printStackTrace();
+					return null;
+				}
+			}
+			else{
+				DevLog.defaultLogging("resEntity>>>>>>>>>>>>>>>is null");
+
+			}
+
+		} catch (final UnsupportedEncodingException e) {
+			e.printStackTrace();
+			DevLog.defaultLogging("{ERROR}@@@@@@@@@>>>>>>>>>>>>>>>" + e.toString());
+
+			return null;
+
+
+		} catch (final ClientProtocolException e) {
+			e.printStackTrace();
+			DevLog.defaultLogging("{ERROR}@@@@@@@@@>>>>>>>>>>>>>>>" + e.toString());
+
+			return null;
+
+		} catch (final IOException e) {
+			e.printStackTrace();
+			DevLog.defaultLogging("{ERROR}@@@@@@@@@>>>>>>>>>>>>>>>" + e.toString());
+
+			return null;
+
+		} catch (final IllegalStateException e) {
+			DevLog.defaultLogging("{ERROR}@@@@@@@@@>>>>>>>>>>>>>>>" + e.toString());
+
+			e.printStackTrace();
+			return null;
+
+		} catch (final Exception e) {
+			DevLog.defaultLogging("{ERROR}@@@@@@@@@>>>>>>>>>>>>>>>" + e.toString());
+
 			e.printStackTrace();
 			return null;
 
