@@ -13,6 +13,7 @@ import android.content.Context;
 import android.support.multidex.MultiDex;
 import android.text.TextUtils;
 
+import com.a2big.android.library.R;
 import com.a2big.android.library.account.IConnector;
 import com.a2big.android.library.adapters.Setting.SettingManager;
 import com.a2big.android.library.core.CoreAccessHelper;
@@ -30,12 +31,39 @@ import com.couchbase.lite.Manager;
 import com.couchbase.lite.android.AndroidContext;
 import com.couchbase.lite.util.Log;
 
+import org.acra.ACRA;
+import org.acra.ACRAConfiguration;
+import org.acra.ReportField;
+import org.acra.annotation.ReportsCrashes;
+
 import java.util.HashMap;
+import java.util.Map;
 
 //import com.a2big.outer.main.activities.login.kakao.common.log.Logger;
 
 
+
+@ReportsCrashes(
+        formUri = "http://outer.a2big.com/crash/report/",
+
+        formUriBasicAuthLogin = "GENERATED_USERNAME_WITH_WRITE_PERMISSIONS",
+        formUriBasicAuthPassword = "GENERATED_PASSWORD",
+        formKey = "",
+        customReportContent = {
+                ReportField.APP_VERSION_CODE,
+                ReportField.APP_VERSION_NAME,
+                ReportField.ANDROID_VERSION,
+                ReportField.PACKAGE_NAME,
+                ReportField.REPORT_ID,
+                ReportField.BUILD,
+                ReportField.STACK_TRACE
+        })
+
+
+
 public class A2BigApp extends Application {
+    private ReportsCrashes mReportsCrashes;
+
     private static final String TAG = "A2BigApp";
     //private static com.a2big.android.library.init.A2BigApp mInstance;
     private static volatile A2BigApp mInstance = null;
@@ -67,6 +95,18 @@ public class A2BigApp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        ACRAConfiguration config = ACRA.getNewDefaultConfig(this.getApplication());
+        config.setResToastText(R.string.app_name);
+        ACRA.setConfig(config);
+
+        ACRA.init(this);
+
+        mReportsCrashes = this.getClass().getAnnotation(ReportsCrashes.class);
+        JsonSender jsonSender = new JsonSender(mReportsCrashes.formUri(), null);
+        ACRA.getErrorReporter().setReportSender(jsonSender);
+
+
+
 
         ///////  Mint.enableLogging(true);
         //////  Mint.initAndStartSession(this, "76ef4494");
@@ -75,8 +115,8 @@ public class A2BigApp extends Application {
 
         /// A2BigApp.mCore = this;
         mInstance = this;
-        ///////KakaoSDK.init(new KakaoSDKAdapter());
-
+    ///////KakaoSDK.init(new KakaoSDKAdapter());
+      ///  ACRA.init(this);
 
         this.setAppContext(getApplicationContext());
 

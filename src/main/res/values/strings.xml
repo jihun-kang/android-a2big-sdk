@@ -10,5 +10,6 @@
     <string name="no_internet" translatable="false">No internet</string>
     <string name="parsing_failed" translatable="false">Parsing Failure</string>
     <string name="auth_failed" translatable="false">Authentication Failure</string>
+    <string name="crash_toast_text">crash_toast_text</string>
 
 </resources>
