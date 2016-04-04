@@ -32,8 +32,8 @@ public class CircleImageView2 extends ImageView {
 
 	private int mSize;
 	private float mShadowRadius = 0;
-	private float mStrokeWidth = 20;
-	private int mFrameColor = Color.BLUE;
+	private float mStrokeWidth = 1;
+	private int mFrameColor = Color.DKGRAY;
 	private int mHighlightColor = Color.WHITE;
 	private int mFrameShadowColor = Color.WHITE;
 	private float mScale = 1.0f;
@@ -96,7 +96,7 @@ public class CircleImageView2 extends ImageView {
 		mEnableTouch = a.getBoolean(R.styleable.CircularImageView_EnableTouch, false);
 */
 
-		mStrokeWidth =  24.0f;
+		//mStrokeWidth =  24.0f;
 		final String handlerName = null;
 
 		DevLog.defaultLogging("RoundedImageView>>>."+mShadowRadius);
