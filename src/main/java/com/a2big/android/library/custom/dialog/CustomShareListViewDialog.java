@@ -21,7 +21,7 @@ import java.util.ArrayList;
 /**
  * Created by a2big on 16. 2. 24..
  */
-public class CustomShareDialog {
+public class CustomShareListViewDialog {
 
    // private Activity mActivity;
     Context mContext;
@@ -29,7 +29,7 @@ public class CustomShareDialog {
     AppAdapter adapter=null;
     private ShareDialogConnector mEventListener;
 
-    public CustomShareDialog(Context context){
+    public CustomShareListViewDialog(Context context){
        // this.mActivity = a;
        this.mContext = context;
     }
@@ -44,7 +44,7 @@ public class CustomShareDialog {
         dialog.getWindow().setBackgroundDrawable(
                 new ColorDrawable(android.graphics.Color.TRANSPARENT));
         dialog.setCanceledOnTouchOutside(true);
-        dialog.setContentView(R.layout.about_dialog);
+        dialog.setContentView(R.layout.about_list_dialog);
         dialog.setCancelable(true);
         ListView lv=(ListView)dialog.findViewById(R.id.listView1);
 

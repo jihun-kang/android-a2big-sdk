@@ -42,6 +42,7 @@ public class SettingManager {
 	public static final String PREFERENCE_MAP_PHOTO_DOC_ID = "preference_map_photo_doc_id";
 
 
+	public static final String PREFERENCE_SHOW_RANK_DIALOG = "preference_show_rank_dialog";
 
 private Utils mUtils;
 
@@ -267,6 +268,17 @@ private Utils mUtils;
 		SharedPreferences.Editor editor = getSharedPreferences().edit();
 		editor.putString(PREFERENCE_SELECT_FULL_ADDR, pStr);
 		editor.commit();
+	}
+
+	public void setShowRankingDialogFlag(boolean pStr) {
+		SharedPreferences.Editor editor = getSharedPreferences().edit();
+		editor.putBoolean(PREFERENCE_SHOW_RANK_DIALOG, pStr);
+		editor.commit();
+	}
+
+
+	public Boolean gethowRankingDialogFlag() {
+		return getSharedPreferences().getBoolean(PREFERENCE_SHOW_RANK_DIALOG,false);
 	}
 
 
