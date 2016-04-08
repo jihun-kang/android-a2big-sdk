@@ -12,6 +12,7 @@ import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Message;
 
+import com.a2big.android.library.adapters.Setting.SettingManager;
 import com.a2big.android.library.init.A2BigApp;
 import com.a2big.android.library.utils.DevLog;
 
@@ -116,19 +117,34 @@ public class NetworkManager {
 		}
 		
 	};
-	
-	
+
+	private SettingManager mSettingManager;
+
 	public NetworkManager() {
-		
+		A2BigApp app = A2BigApp.getApplication();
+		mSettingManager = app.getSettingManager();
+
 	}
 	
 	public void setServerMode(boolean pDev) {
 		isDev = pDev;
 	}
 	
+//	public String getServerMode() {
+//		return isDev ? DEV_SERVER_URL : SERVER_URL;
+//	}
+
+
 	public String getServerMode() {
+		if( mSettingManager.getServerURL() != null) {
+			return mSettingManager.getServerURL();
+		}
+		else {
 		return isDev ? DEV_SERVER_URL : SERVER_URL;
 	}
+	}
+
+
 	
 	public boolean isNetworkAvailable(Context pContext) {
 		/*

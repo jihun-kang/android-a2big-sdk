@@ -43,6 +43,8 @@ public class SettingManager {
 
 
 	public static final String PREFERENCE_SHOW_RANK_DIALOG = "preference_show_rank_dialog";
+	public static final String PREFERENCE_SERVER_RUN_MODE = "preference_server_runmode";
+	public static final String PREFERENCE_SERVER_URL = "preference_server_url";
 
 private Utils mUtils;
 
@@ -277,6 +279,19 @@ private Utils mUtils;
 	}
 
 
+	public void setServerRunMode(boolean p) {
+		SharedPreferences.Editor editor = getSharedPreferences().edit();
+		editor.putBoolean(PREFERENCE_SERVER_RUN_MODE, p);
+		editor.commit();
+	}
+
+	public void setServerURL(String pStr) {
+		SharedPreferences.Editor editor = getSharedPreferences().edit();
+		editor.putString(PREFERENCE_SERVER_URL, pStr);
+		editor.commit();
+	}
+
+
 	public Boolean gethowRankingDialogFlag() {
 		return getSharedPreferences().getBoolean(PREFERENCE_SHOW_RANK_DIALOG,false);
 	}
@@ -305,5 +320,17 @@ private Utils mUtils;
 	public String getSelectLongitude() {
 		return getSharedPreferences().getString(PREFERENCE_SELECT_LONGITUDE, Constants.EMPTY);
 	}
+
+
+
+	public Boolean getServerRunMode() {
+		return getSharedPreferences().getBoolean(PREFERENCE_SERVER_RUN_MODE, false);
+	}
+
+	public String getServerURL() {
+		return getSharedPreferences().getString(PREFERENCE_SERVER_URL, Constants.EMPTY);
+	}
+
+
 
 }

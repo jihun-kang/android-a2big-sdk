@@ -41,6 +41,8 @@ public class A2bigHandler implements ITaskHandler, IConnector {
         ADD_ROAD_CAST_PHOTO(102),
         ADD_USER_SOCIAL(103),
         ADD_PHOTO_LIKE(104),
+        GET_DH_IMAGE(200),
+
 
         ;
 
@@ -167,8 +169,14 @@ public class A2bigHandler implements ITaskHandler, IConnector {
                     break;
                 }
 
+            // DRAGON
+                case GET_DH_IMAGE:{
+                    DevLog.defaultLogging("GET_DH_IMAGE...!!!!!");
+                    response = getDHImage((List<Object>) tp.getParameterValue());
+                    break;
 
 
+                }
 
             }
 
@@ -380,6 +388,18 @@ public class A2bigHandler implements ITaskHandler, IConnector {
 
     }
 
+    //DRAGON
+    private Object getDHImage(List<Object> parameterValue) {
+        if (parameterValue == null || parameterValue.size() != 1) {
+            DevLog.defaultLogging("regUser>>>>>>pParams.size() != 1");
+            return null;
+        }
+
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("email", (String) parameterValue.get(0)));
+
+        return mResponseManager.analysePostResponse("get/photo/dragon", params);
+    }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////
     /*
@@ -466,6 +486,13 @@ public class A2bigHandler implements ITaskHandler, IConnector {
         DevLog.defaultLogging("######### addLikePhoto..."+pEmail + " " + pPhotoId+" "+pValue);
 
         mSharedTask.addTask(this, TaskType.ADD_PHOTO_LIKE, task);
+    }
+
+    @Override
+    public void getDHImage(String pEmail, IResponseEvent<Object> pResponseEvent) {
+        TaskParam task = new TaskParam(Arrays.asList(pEmail),pResponseEvent);
+        mSharedTask.addTask(this, TaskType.GET_DH_IMAGE, task);
+
     }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 

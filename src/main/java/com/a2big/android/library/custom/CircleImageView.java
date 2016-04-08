@@ -153,6 +153,7 @@ public class CircleImageView extends ImageView {
 			return;
 		}
 
+	try{
 
 		Bitmap b = ((BitmapDrawable) drawable).getBitmap();
 		Bitmap originalBitmap = b.copy(Bitmap.Config.ARGB_8888, true);
@@ -164,7 +165,12 @@ public class CircleImageView extends ImageView {
 		} else {
 			canvas.drawBitmap(roundBitmap, 0, getHeight() / 2 - mSize / 2, null);
 		}
+	} catch (OutOfMemoryError e) {
+		DevLog.defaultLogging("OutOfMemoryError>>>......" );
+
 	}
+
+}
 
 	public Bitmap getCroppedBitmap(Bitmap bitmap, int size,
 			int frameColor, float strokeWidth,

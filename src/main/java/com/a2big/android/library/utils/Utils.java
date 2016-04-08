@@ -366,7 +366,7 @@ public class Utils {
 		return version;
 	}
 	
-	public int pxToDp(int px)
+	public static int pxToDp(int px)
 	{
 	    return (int) (px / Resources.getSystem().getDisplayMetrics().density);
 	}
