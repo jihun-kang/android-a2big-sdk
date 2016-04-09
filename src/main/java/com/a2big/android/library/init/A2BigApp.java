@@ -37,7 +37,6 @@ import org.acra.ReportField;
 import org.acra.annotation.ReportsCrashes;
 
 import java.util.HashMap;
-import java.util.Map;
 
 //import com.a2big.outer.main.activities.login.kakao.common.log.Logger;
 
@@ -188,6 +187,13 @@ public class A2BigApp extends Application {
                 }
             }
         }
+    }
+
+    public CoreAccessHelper getAccessor(){
+        if(mAccessor == null)
+            connectCoreEngine();
+
+        return mAccessor;
     }
 
     public IConnector getConnector() {

@@ -14,7 +14,7 @@ public class CoreAccessHelper {
 	private volatile IConnector mConnector = null;
 
 	
-	private SharedTask getSharedTask() {
+	public SharedTask getSharedTask() {
 		if(mSharedTask == null) {
 			
 			synchronized(this) {
@@ -27,7 +27,7 @@ public class CoreAccessHelper {
 		
 		return mSharedTask;
 	}
-	
+
 	public IConnector getConnector() {
 		if(mConnector == null) {
 			
