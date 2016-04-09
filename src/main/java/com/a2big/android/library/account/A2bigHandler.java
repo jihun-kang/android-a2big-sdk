@@ -33,7 +33,6 @@ public class A2bigHandler implements ITaskHandler, IConnector {
 
     private enum TaskType implements ITaskType {
         LOGIN_ACCOUNT(100),
-        GET_SIDO_ADDR(101),
         ;
 
         private final int value;
@@ -48,7 +47,6 @@ public class A2bigHandler implements ITaskHandler, IConnector {
 
     }
 
-    ;
 
     static public class TaskParam {
         private List<? extends Object> mParameterValue = null;
@@ -82,8 +80,6 @@ public class A2bigHandler implements ITaskHandler, IConnector {
 
     @Override
     public void handleTask(ITaskType pTaskType, Object pParam) throws IllegalArgumentException {
-        DevLog.defaultLogging("handleTask...##############");
-
         if (!(pTaskType instanceof TaskType)) {
             throw new IllegalArgumentException("pTaskType should be one of TaskTypes which is defined previous");
         }
@@ -99,18 +95,9 @@ public class A2bigHandler implements ITaskHandler, IConnector {
         try {
             switch (taskType) {
                 case LOGIN_ACCOUNT: {
-                    DevLog.defaultLogging("loginAccount...");
-
                     response = loginAccount((List<Object>) tp.getParameterValue());
                     break;
                 }
-
-
-                case GET_SIDO_ADDR: {
-                    response = getSiDoAddr();
-                    break;
-                }
-
             }
 
         } catch (Exception e) {
@@ -123,12 +110,8 @@ public class A2bigHandler implements ITaskHandler, IConnector {
         }
     }
 
-
-
     @Override
     public void loginAccount(String pEmail, String pPassword, IResponseEvent<Object> pResponseEvent) {
-        DevLog.defaultLogging("loginAccount...");
-
         TaskParam task = new TaskParam(Arrays.asList(pEmail, pPassword), pResponseEvent);
         mSharedTask.addTask(this, TaskType.LOGIN_ACCOUNT, task);
     }
@@ -136,40 +119,13 @@ public class A2bigHandler implements ITaskHandler, IConnector {
     private Object loginAccount(List<Object> pParams) throws UnsupportedEncodingException {
         if (pParams == null || pParams.size() != 2)
             return null;
-
         String email = (String) pParams.get(0);
         String password = (String) pParams.get(1);
-
         List<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("username", email));
         params.add(new BasicNameValuePair("password", password));
-        DevLog.defaultLogging("loginAccount...mResponseManager");
-
         return mResponseManager.analysePostResponse("api/login/username/", params);
     }
-
-    ////////////////
-    @Override
-    public void getSiDoAddr(IResponseEvent<Object> pResponseEvent) {
-        TaskParam task = new TaskParam(null, pResponseEvent);
-        mSharedTask.addTask(this, TaskType.GET_SIDO_ADDR, task);
-
-    }
-
-    private Object getSiDoAddr() throws UnsupportedEncodingException {
-        //List<NameValuePair> params = new ArrayList<NameValuePair>();
-        //params.add(new BasicNameValuePair("type", type));
-        //params.add(new BasicNameValuePair("data", data));
-
-        return mResponseManager.analyseGetResponse("api/login/find_sido_addr/");
-        //return mResponseManager.analyseGetResponse("api/login/find_addr");
-    }
-//////////////
-
-
-
-
-
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 }

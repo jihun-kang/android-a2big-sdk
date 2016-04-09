@@ -9,8 +9,4 @@ package com.a2big.android.library.account;
  */
 public interface IConnector {
 	public void loginAccount(String pEmail, String pPassword, IResponseEvent<Object> pResponseEvent);
-	public void getSiDoAddr(IResponseEvent<Object> pResponseEvent);
-
-
-
 }
