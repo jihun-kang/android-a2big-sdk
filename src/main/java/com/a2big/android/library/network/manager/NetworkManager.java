@@ -80,8 +80,8 @@ public class NetworkManager {
 	private static final String TAG = "NetworkManager";
 	private static final int HARD_TIMEOUT = 1000 * 10;
 	private static final int SOCKET_TIMEOUT = 1000 * 10;
-	private static final String SERVER_URL = "http://release.a2big.com";
-	private static final String DEV_SERVER_URL = "http://outer.a2big.com";
+	private static final String SERVER_URL = null;
+	private static final String DEV_SERVER_URL = null;
 
 	private boolean isDev = true;
 	private String mServerUrl;
