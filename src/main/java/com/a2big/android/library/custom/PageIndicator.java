@@ -126,4 +126,5 @@ public class PageIndicator extends LinearLayout implements ViewPager.OnPageChang
         mEventListener = listener;
     }
 
+
 }
