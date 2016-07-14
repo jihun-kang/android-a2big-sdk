@@ -16,23 +16,36 @@ public class FontText extends TextView {
     public FontText(Context context) {
         super(context);
 
-        applyCustomFont(context);
+        applyCustomFont(context,0);
     }
 
     public FontText(Context context, AttributeSet attrs) {
         super(context, attrs);
 
-        applyCustomFont(context);
+        applyCustomFont(context,1);
     }
 
     public FontText(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
 
-        applyCustomFont(context);
+        applyCustomFont(context,1);
     }
 
-    private void applyCustomFont(Context context) {
-        Typeface customFont = FontCache.getTypeface("The130.ttf", context);
-        setTypeface(customFont);
+    private void applyCustomFont(Context context,int type) {
+        Typeface customFont;
+        switch(type){
+            case 0:
+                customFont = FontCache.getTypeface("The170.ttf", context);
+                setTypeface(customFont);
+                break;
+            case 1:
+                customFont = FontCache.getTypeface("The130.ttf", context);
+                setTypeface(customFont);
+                break;
+            default:
+                customFont = FontCache.getTypeface("The170.ttf", context);
+                setTypeface(customFont);
+                break;
+        }
     }
 }
