@@ -1,51 +1,37 @@
 package com.a2big.android.library.custom;
 
 import android.content.Context;
-import android.graphics.Typeface;
 import android.util.AttributeSet;
-import android.widget.TextView;
+import android.view.KeyEvent;
+import android.widget.EditText;
 
-import java.util.Locale;
+public class CustomFontEditTextView extends EditText {
 
-public class CustomFontEditTextView extends TextView {
+    public CustomFontEditTextView(Context a_context) {
 
-    private static final String sScheme =
-            "http://schemas.android.com/apk/res-auto";
-    private static final String sAttribute = "customFont";
+        super(a_context);
 
-    static enum CustomFont {
-        ROBOTO_THIN("fonts/Roboto-Thin.ttf"),
-        ROBOTO_LIGHT("fonts/Roboto-Light.ttf");
-
-        private final String fileName;
-
-        CustomFont(String fileName) {
-            this.fileName = fileName;
-        }
-
-        static CustomFont fromString(String fontName) {
-            return CustomFont.valueOf(fontName.toUpperCase(Locale.US));
-        }
-
-        public Typeface asTypeface(Context context) {
-            return Typeface.createFromAsset(context.getAssets(), fileName);
-        }
     }
 
-    public CustomFontEditTextView(Context context, AttributeSet attrs) {
-        super(context, attrs);
+    public CustomFontEditTextView(Context a_context, AttributeSet a_attributeSet) {
 
-        if (isInEditMode()) {
-            return;
-        } else {
-            final String fontName = attrs.getAttributeValue(sScheme, sAttribute);
+        super(a_context, a_attributeSet);
 
-            if (fontName == null) {
-                throw new IllegalArgumentException("You must provide \"" + sAttribute + "\" for your text view");
-            } else {
-                final Typeface customTypeface = CustomFont.fromString(fontName).asTypeface(context);
-                setTypeface(customTypeface);
+    }
+
+    public boolean onKeyPreIme(int keyCode, KeyEvent event) {
+
+
+        if(event.getAction() == KeyEvent.ACTION_DOWN) {
+
+            if(keyCode == KeyEvent.KEYCODE_BACK) {
+
+                return true; // 사용자가 override한 함수 사용
             }
         }
+
+        return super.onKeyPreIme(keyCode, event); // 시스템 default 함수 사용
+
     }
+
 }
