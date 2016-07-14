@@ -8,9 +8,6 @@ import android.util.Log;
 import android.widget.TextView;
 
 
-import com.a2big.education.R;
-import com.a2big.education.fragment.FontCache;
-import com.a2big.education.fragment.FontManager;
 
 import org.apache.commons.lang3.StringUtils;
 
