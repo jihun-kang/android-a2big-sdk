@@ -1148,13 +1148,15 @@ public class NetworkManager {
 		File image1=null;
 		DevLog.defaultLogging(">>>>>>>>>>>>>>>loginWithProfile {"+pSubUrl+"}");
 
-		DevLog.defaultLogging("#loginWithProfile email>> " + pArgs.get(0).getValue());
-		DevLog.defaultLogging("#loginWithProfile name>> " + pArgs.get(1).getValue());
-		DevLog.defaultLogging("#loginWithProfile imageURL>> " + pArgs.get(2).getValue());
+		DevLog.defaultLogging("#loginWithProfile device_id>> " + pArgs.get(0).getValue());
 
-		DevLog.defaultLogging("#loginWithProfile image>> " + pArgs.get(3).getValue());
+		DevLog.defaultLogging("#loginWithProfile email>> " + pArgs.get(1).getValue());
+		DevLog.defaultLogging("#loginWithProfile name>> " + pArgs.get(2).getValue());
+		DevLog.defaultLogging("#loginWithProfile imageURL>> " + pArgs.get(3).getValue());
 
-		if (pArgs.get(3).getValue().length() > 0) {
+		DevLog.defaultLogging("#loginWithProfile image>> " + pArgs.get(4).getValue());
+
+		if (pArgs.get(4).getValue().length() > 0) {
 			image1 = new File(pArgs.get(3).getValue());
 			DevLog.defaultLogging("image1 file size  " + image1.length());
 
@@ -1173,9 +1175,10 @@ public class NetworkManager {
 			//MultipartEntity multipartEntity = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
 			MultipartEntity multipartEntity   = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE,null, Charset.forName("UTF-8"));
 
-			multipartEntity.addPart("email", new StringBody( pArgs.get(0).getValue(), Charset.forName("UTF-8")) );
-			multipartEntity.addPart("name", new StringBody( pArgs.get(1).getValue(), Charset.forName("UTF-8")) );
-			multipartEntity.addPart("imageURL", new StringBody( pArgs.get(2).getValue(), Charset.forName("UTF-8")) );
+			multipartEntity.addPart("deviceId", new StringBody( pArgs.get(0).getValue(), Charset.forName("UTF-8")) );
+			multipartEntity.addPart("email", new StringBody( pArgs.get(1).getValue(), Charset.forName("UTF-8")) );
+			multipartEntity.addPart("name", new StringBody( pArgs.get(2).getValue(), Charset.forName("UTF-8")) );
+			multipartEntity.addPart("imageURL", new StringBody( pArgs.get(3).getValue(), Charset.forName("UTF-8")) );
 
 			if( image1 != null )
 				multipartEntity.addPart("file1", new FileBody(image1));		//3
