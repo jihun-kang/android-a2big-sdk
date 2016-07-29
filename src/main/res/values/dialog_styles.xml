@@ -9,7 +9,7 @@
 
     <style name="creamDialogDefaultBorder" parent="creamDialogNoBorder">
         <item name="android:windowNoTitle">true</item>
-        <item name="android:windowSoftInputMode">stateAlwaysHidden</item>
+        <item name="android:windowSoftInputMode">stateAlwaysHidden</item>c
     </style>
 
     <style name="dividerLine">

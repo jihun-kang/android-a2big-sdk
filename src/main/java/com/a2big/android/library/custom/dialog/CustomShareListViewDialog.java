@@ -48,6 +48,7 @@ public class CustomShareListViewDialog {
         dialog.setCancelable(true);
         ListView lv=(ListView)dialog.findViewById(R.id.listView1);
 
+
 /*
         email.putExtra(Intent.EXTRA_EMAIL, new String[]{"velmurugan@androidtoppers.com"});
         email.putExtra(Intent.EXTRA_SUBJECT, "Hi");
@@ -72,17 +73,17 @@ public class CustomShareListViewDialog {
         dialog.show();
     }
 
-
     private ArrayList<ShareApp> initDialog(){
         ArrayList<ShareApp> m_orders = new ArrayList<ShareApp>();
 
-        ShareApp p1 = new ShareApp(R.drawable.email, "이메일");
+        ShareApp p1 = new ShareApp(R.drawable.facebook_icon, "페이스북");
         ShareApp p2 = new ShareApp(R.drawable.kakao, "카카오톡");
-        ShareApp p3 = new ShareApp(R.drawable.facebook_icon, "페이스북");
+        ShareApp p3 = new ShareApp(R.drawable.email, "이메일");
 
         m_orders.add(p1);
         m_orders.add(p2);
         m_orders.add(p3);
+
         return m_orders;
     }
 
