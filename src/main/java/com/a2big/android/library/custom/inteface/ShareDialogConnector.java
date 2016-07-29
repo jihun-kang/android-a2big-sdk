@@ -8,5 +8,5 @@ package com.a2big.android.library.custom.inteface;
  *
  */
 public interface ShareDialogConnector {
-    void onReceivedMessage(int position);
+    void onReceivedMessage(int position, String mTitle, String mDesc, String mUrl);
 }

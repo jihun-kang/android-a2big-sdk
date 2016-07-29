@@ -29,9 +29,13 @@ public class CustomShareListViewDialog {
     AppAdapter adapter=null;
     private ShareDialogConnector mEventListener;
 
-    public CustomShareListViewDialog(Context context){
+    public String mTitle,mDesc,mUrl;
+    public CustomShareListViewDialog(Context context,String title, String desc, String url){
        // this.mActivity = a;
        this.mContext = context;
+        this.mTitle = title;
+        this.mDesc = desc;
+        this.mUrl = url;
     }
 
     public void show() {
@@ -65,7 +69,7 @@ public class CustomShareListViewDialog {
 
                 DevLog.defaultLogging("itemClick.." + position);
                 if(mEventListener!=null)
-                    mEventListener.onReceivedMessage(position);
+                    mEventListener.onReceivedMessage(position, mTitle,mDesc,mUrl);
 
                 //feed();
             }
