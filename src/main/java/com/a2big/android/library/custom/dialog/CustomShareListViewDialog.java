@@ -14,6 +14,7 @@ import com.a2big.android.library.R;
 import com.a2big.android.library.custom.adapter.AppAdapter;
 import com.a2big.android.library.custom.adapter.ShareApp;
 import com.a2big.android.library.custom.inteface.ShareDialogConnector;
+import com.a2big.android.library.objecttype.AbstractObject;
 import com.a2big.android.library.utils.DevLog;
 
 import java.util.ArrayList;
@@ -29,13 +30,22 @@ public class CustomShareListViewDialog {
     AppAdapter adapter=null;
     private ShareDialogConnector mEventListener;
 
-    public String mTitle,mDesc,mUrl;
-    public CustomShareListViewDialog(Context context,String title, String desc, String url){
+    public String mType, mId, mBoardId, mTitle,mImage,mDesc,mUrl,mVideoId,mDate, mUserId, mReadNum;
+    public CustomShareListViewDialog(Context context,String type, String id, String board_id, String title, String image, String desc, String url, String videoId,String date,  String userId,  String readNum){
        // this.mActivity = a;
        this.mContext = context;
+        this.mType = type;
+        this.mId = id;
+        this.mBoardId = board_id;
         this.mTitle = title;
+        this.mImage = image;
         this.mDesc = desc;
         this.mUrl = url;
+        this.mVideoId = videoId;
+
+        this.mDate = date;
+        this.mUserId = userId;
+        this.mReadNum = readNum;
     }
 
     public void show() {
@@ -69,8 +79,8 @@ public class CustomShareListViewDialog {
 
                 DevLog.defaultLogging("itemClick.." + position);
                 if(mEventListener!=null)
-                    mEventListener.onReceivedMessage(position, mTitle,mDesc,mUrl);
-
+                    mEventListener.onReceivedMessage(position,mType, mId,mBoardId, mTitle,mImage, mDesc,mUrl,mVideoId,mDate,mUserId,mReadNum);
+                    dialog.dismiss();
                 //feed();
             }
         });
@@ -95,7 +105,6 @@ public class CustomShareListViewDialog {
     public void setOnReceivedEvent(ShareDialogConnector listener){
         mEventListener = listener;
     }
-
 
 
 }
